@@ -24,6 +24,7 @@ type AuthContextValue = {
   register: (email: string, password: string) => Promise<void>
   signInWithGoogle: (idToken: string) => Promise<void>
   signOut: () => Promise<void>
+  updateUser: (user: User) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -100,9 +101,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setStatus('unauthenticated')
   }, [])
 
+  const updateUser = useCallback((next: User) => {
+    setUser(next)
+  }, [])
+
   const value = useMemo(
-    () => ({ user, status, login, register, signInWithGoogle, signOut }),
-    [user, status, login, register, signInWithGoogle, signOut],
+    () => ({ user, status, login, register, signInWithGoogle, signOut, updateUser }),
+    [user, status, login, register, signInWithGoogle, signOut, updateUser],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

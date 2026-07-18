@@ -58,12 +58,18 @@ export function SiteHeader() {
 
           {status === 'authenticated' && user && (
             <>
-              <Avatar size="sm">
-                <AvatarImage src={user.avatarUrl} alt={user.email} />
-                <AvatarFallback>
-                  {user.email.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              <Link
+                href="/profile"
+                aria-label="View profile"
+                className="rounded-full transition-opacity hover:opacity-80"
+              >
+                <Avatar size="sm">
+                  <AvatarImage src={user.avatarUrl} alt={user.email} />
+                  <AvatarFallback>
+                    {(user.name || user.email).charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
               <Button variant="ghost" size="sm" onClick={() => signOut()}>
                 Sign out
               </Button>
