@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { MapPin, BedDouble, Bath, Maximize } from "lucide-react";
+import { BedDouble, Bath, Maximize } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { type Property, formatPrice } from "@/lib/properties";
+import { formatPrice } from "@/lib/format";
+import type { Property } from "@/lib/gen/property_pb";
 import Image from "next/image";
 
 export function PropertyCard({ property }: { property: Property }) {
@@ -12,8 +13,8 @@ export function PropertyCard({ property }: { property: Property }) {
     >
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
         <Image
-          src={property.image || "/placeholder.svg"}
-          alt={`${property.title} in ${property.location}`}
+          src={property.mainImageUrl || "/placeholder.svg"}
+          alt={property.title}
           className="size-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
           width={0}
           height={0}
@@ -37,24 +38,20 @@ export function PropertyCard({ property }: { property: Property }) {
           <h3 className="text-pretty font-medium leading-snug text-foreground">
             {property.title}
           </h3>
-          <p className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
-            <MapPin className="size-3.5" aria-hidden="true" />
-            {property.location}
-          </p>
         </div>
 
         <div className="mt-auto flex items-center gap-4 border-t border-border pt-3 text-sm text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <BedDouble className="size-4" aria-hidden="true" />
-            {property.beds} bd
+            {property.bedrooms} bd
           </span>
           <span className="flex items-center gap-1.5">
             <Bath className="size-4" aria-hidden="true" />
-            {property.baths} ba
+            {property.bathrooms} ba
           </span>
           <span className="flex items-center gap-1.5">
             <Maximize className="size-4" aria-hidden="true" />
-            {property.area.toLocaleString()} sqft
+            {property.sizeSqM.toLocaleString()} m²
           </span>
         </div>
       </div>

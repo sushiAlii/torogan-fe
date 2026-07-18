@@ -1,23 +1,36 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Loader2 } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SearchBar } from '@/components/search-bar'
 import { PropertyCard } from '@/components/property-card'
-import { properties } from '@/lib/properties'
+import { propertyClient } from '@/lib/api/client'
+import type { Property } from '@/lib/gen/property_pb'
 
 export default function BrowsePage() {
   const [query, setQuery] = useState('')
+  const [properties, setProperties] = useState<Property[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return properties
-    return properties.filter(
-      (p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.location.toLowerCase().includes(q) ||
-        p.type.toLowerCase().includes(q),
-    )
+  useEffect(() => {
+    let cancelled = false
+    const timeout = setTimeout(async () => {
+      setLoading(true)
+      try {
+        const res = await propertyClient.getPropertyList({ search: query, limit: 50 })
+        if (!cancelled) setProperties(res.properties)
+      } catch {
+        if (!cancelled) setProperties([])
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }, 250)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timeout)
+    }
   }, [query])
 
   return (
@@ -41,14 +54,17 @@ export default function BrowsePage() {
         <section className="mt-10">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-lg font-medium text-foreground">
-              {filtered.length} {filtered.length === 1 ? 'home' : 'homes'} available
+              {properties.length} {properties.length === 1 ? 'home' : 'homes'} available
             </h2>
-            <span className="text-sm text-muted-foreground">Sorted by featured</span>
           </div>
 
-          {filtered.length > 0 ? (
+          {loading ? (
+            <div className="flex items-center justify-center py-16">
+              <Loader2 className="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
+            </div>
+          ) : properties.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((property) => (
+              {properties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
