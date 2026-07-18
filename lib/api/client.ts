@@ -6,6 +6,7 @@ import { PropertyService } from '@/lib/gen/property_pb'
 import { AddressService } from '@/lib/gen/address_pb'
 import { UserService } from '@/lib/gen/user_pb'
 import { UploadService } from '@/lib/gen/upload_pb'
+import { FeatureService } from '@/lib/gen/feature_pb'
 import { getAccessToken } from '@/lib/api/token'
 
 const authInterceptor: Interceptor = (next) => (req) => {
@@ -27,3 +28,4 @@ export const propertyClient = createClient(PropertyService, transport)
 export const addressClient = createClient(AddressService, transport)
 export const userClient = createClient(UserService, transport)
 export const uploadClient = createClient(UploadService, transport)
+export const featureClient = createClient(FeatureService, transport)

@@ -25,6 +25,7 @@ import { propertyClient, addressClient } from '@/lib/api/client'
 import { formatPrice } from '@/lib/format'
 import type { Property } from '@/lib/gen/property_pb'
 import type { Address } from '@/lib/gen/address_pb'
+import type { Feature } from '@/lib/gen/feature_pb'
 
 export default function ListingPage() {
   const { id } = useParams<{ id: string }>()
@@ -32,6 +33,7 @@ export default function ListingPage() {
 
   const [property, setProperty] = useState<Property | null>(null)
   const [address, setAddress] = useState<Address | null>(null)
+  const [amenities, setAmenities] = useState<Feature[]>([])
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
@@ -57,6 +59,13 @@ export default function ListingPage() {
         if (!cancelled) setAddress(a)
       } catch {
         if (!cancelled) setAddress(null)
+      }
+
+      try {
+        const f = await propertyClient.listPropertyFeatures({ propertyId: id })
+        if (!cancelled) setAmenities(f.features)
+      } catch {
+        if (!cancelled) setAmenities([])
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -169,6 +178,20 @@ export default function ListingPage() {
                 </div>
               ))}
             </div>
+
+            {/* Amenities */}
+            {amenities.length > 0 && (
+              <div className="rounded-2xl border border-border bg-card p-4">
+                <h2 className="font-semibold text-foreground">Amenities</h2>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {amenities.map((amenity) => (
+                    <Badge key={amenity.id} variant="secondary">
+                      {amenity.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Contact card */}
             {authStatus === 'authenticated' && hasContact ? (
