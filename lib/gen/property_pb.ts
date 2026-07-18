@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file property.proto.
  */
 export const file_property: GenFile = /*@__PURE__*/
-  fileDesc("Cg5wcm9wZXJ0eS5wcm90bxILcHJvcGVydHkudjEixQIKCFByb3BlcnR5EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhEKCXNpemVfc3FfbRgDIAEoARITCgtkZXNjcmlwdGlvbhgEIAEoCRINCgVwcmljZRgFIAEoCRIQCghvd25lcl9pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghiZWRyb29tcxgJIAEoBRIRCgliYXRocm9vbXMYCiABKAESFgoObWFpbl9pbWFnZV91cmwYCyABKAkSKgoGaW1hZ2VzGAwgAygLMhoucHJvcGVydHkudjEuUHJvcGVydHlJbWFnZRIMCgR0eXBlGA0gASgJImAKDVByb3BlcnR5SW1hZ2USCgoCaWQYASABKAkSEwoLcHJvcGVydHlfaWQYAiABKAkSCwoDdXJsGAMgASgJEg8KB2lzX21haW4YBCABKAgSEAoIcG9zaXRpb24YBSABKAUiogEKFUNyZWF0ZVByb3BlcnR5UmVxdWVzdBINCgV0aXRsZRgBIAEoCRIRCglzaXplX3NxX20YAiABKAESEwoLZGVzY3JpcHRpb24YAyABKAkSDQoFcHJpY2UYBCABKAkSEAoIb3duZXJfaWQYBSABKAkSEAoIYmVkcm9vbXMYBiABKAUSEQoJYmF0aHJvb21zGAcgASgBEgwKBHR5cGUYCCABKAkiJAoWR2V0UHJvcGVydHlCeUlEUmVxdWVzdBIKCgJpZBgBIAEoCSJHChZHZXRQcm9wZXJ0eUxpc3RSZXF1ZXN0Eg4KBmN1cnNvchgBIAEoCRINCgVsaW1pdBgCIAEoBRIOCgZzZWFyY2gYAyABKAkibgoXR2V0UHJvcGVydHlMaXN0UmVzcG9uc2USKQoKcHJvcGVydGllcxgBIAMoCzIVLnByb3BlcnR5LnYxLlByb3BlcnR5EhMKC25leHRfY3Vyc29yGAIgASgJEhMKC3RvdGFsX2NvdW50GAMgASgFIqABChlVcGRhdGVQcm9wZXJ0eUJ5SURSZXF1ZXN0EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhEKCXNpemVfc3FfbRgDIAEoARITCgtkZXNjcmlwdGlvbhgEIAEoCRINCgVwcmljZRgFIAEoCRIQCghiZWRyb29tcxgGIAEoBRIRCgliYXRocm9vbXMYByABKAESDAoEdHlwZRgIIAEoCSInChlEZWxldGVQcm9wZXJ0eUJ5SURSZXF1ZXN0EgoKAmlkGAEgASgJIj4KGkRlbGV0ZVByb3BlcnR5QnlJRFJlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCSJEChlBZGRQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEhIKCmZlYXR1cmVfaWQYAiABKAUiRwocUmVtb3ZlUHJvcGVydHlGZWF0dXJlUmVxdWVzdBITCgtwcm9wZXJ0eV9pZBgBIAEoCRISCgpmZWF0dXJlX2lkGAIgASgFIjIKG0xpc3RQcm9wZXJ0eUZlYXR1cmVzUmVxdWVzdBITCgtwcm9wZXJ0eV9pZBgBIAEoCSJFChxMaXN0UHJvcGVydHlGZWF0dXJlc1Jlc3BvbnNlEiUKCGZlYXR1cmVzGAEgAygLMhMuZmVhdHVyZS52MS5GZWF0dXJlIl4KF0FkZFByb3BlcnR5SW1hZ2VSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEgsKA3VybBgCIAEoCRIPCgdpc19tYWluGAMgASgIEhAKCHBvc2l0aW9uGAQgASgFIkMKGlJlbW92ZVByb3BlcnR5SW1hZ2VSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEhAKCGltYWdlX2lkGAIgASgJIjAKGUxpc3RQcm9wZXJ0eUltYWdlc1JlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkiSAoaTGlzdFByb3BlcnR5SW1hZ2VzUmVzcG9uc2USKgoGaW1hZ2VzGAEgAygLMhoucHJvcGVydHkudjEuUHJvcGVydHlJbWFnZTKDDAoPUHJvcGVydHlTZXJ2aWNlEmYKDkNyZWF0ZVByb3BlcnR5EiIucHJvcGVydHkudjEuQ3JlYXRlUHJvcGVydHlSZXF1ZXN0GhUucHJvcGVydHkudjEuUHJvcGVydHkiGYLT5JMCEzoBKiIOL3YxL3Byb3BlcnRpZXMSagoPR2V0UHJvcGVydHlCeUlEEiMucHJvcGVydHkudjEuR2V0UHJvcGVydHlCeUlEUmVxdWVzdBoVLnByb3BlcnR5LnYxLlByb3BlcnR5IhuC0+STAhUSEy92MS9wcm9wZXJ0aWVzL3tpZH0SdAoPR2V0UHJvcGVydHlMaXN0EiMucHJvcGVydHkudjEuR2V0UHJvcGVydHlMaXN0UmVxdWVzdBokLnByb3BlcnR5LnYxLkdldFByb3BlcnR5TGlzdFJlc3BvbnNlIhaC0+STAhASDi92MS9wcm9wZXJ0aWVzEnMKElVwZGF0ZVByb3BlcnR5QnlJRBImLnByb3BlcnR5LnYxLlVwZGF0ZVByb3BlcnR5QnlJRFJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIegtPkkwIYOgEqGhMvdjEvcHJvcGVydGllcy97aWR9EoIBChJEZWxldGVQcm9wZXJ0eUJ5SUQSJi5wcm9wZXJ0eS52MS5EZWxldGVQcm9wZXJ0eUJ5SURSZXF1ZXN0GicucHJvcGVydHkudjEuRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2UiG4LT5JMCFSoTL3YxL3Byb3BlcnRpZXMve2lkfRKZAQoSQWRkUHJvcGVydHlGZWF0dXJlEiYucHJvcGVydHkudjEuQWRkUHJvcGVydHlGZWF0dXJlUmVxdWVzdBopLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2UiMILT5JMCKjoBKiIlL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcxKnAQoVUmVtb3ZlUHJvcGVydHlGZWF0dXJlEikucHJvcGVydHkudjEuUmVtb3ZlUHJvcGVydHlGZWF0dXJlUmVxdWVzdBonLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlc3BvbnNlIjqC0+STAjQqMi92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vZmVhdHVyZXMve2ZlYXR1cmVfaWR9EpoBChRMaXN0UHJvcGVydHlGZWF0dXJlcxIoLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVxdWVzdBopLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2UiLYLT5JMCJxIlL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcxKRAQoQQWRkUHJvcGVydHlJbWFnZRIkLnByb3BlcnR5LnYxLkFkZFByb3BlcnR5SW1hZ2VSZXF1ZXN0GicucHJvcGVydHkudjEuTGlzdFByb3BlcnR5SW1hZ2VzUmVzcG9uc2UiLoLT5JMCKDoBKiIjL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9pbWFnZXMSnwEKE1JlbW92ZVByb3BlcnR5SW1hZ2USJy5wcm9wZXJ0eS52MS5SZW1vdmVQcm9wZXJ0eUltYWdlUmVxdWVzdBonLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlc3BvbnNlIjaC0+STAjAqLi92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vaW1hZ2VzL3tpbWFnZV9pZH0SkgEKEkxpc3RQcm9wZXJ0eUltYWdlcxImLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUltYWdlc1JlcXVlc3QaJy5wcm9wZXJ0eS52MS5MaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZSIrgtPkkwIlEiMvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ltYWdlc0I7WjlnaXRodWIuY29tL3N1c2hpQWxpaS90b3JvZ2FuLWJlL2dlbi9wcm9wZXJ0eXYxO3Byb3BlcnR5djFiBnByb3RvMw", [file_google_protobuf_timestamp, file_google_api_annotations, file_feature]);
+  fileDesc("Cg5wcm9wZXJ0eS5wcm90bxILcHJvcGVydHkudjEi9wIKCFByb3BlcnR5EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhEKCXNpemVfc3FfbRgDIAEoARITCgtkZXNjcmlwdGlvbhgEIAEoCRINCgVwcmljZRgFIAEoCRIQCghvd25lcl9pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghiZWRyb29tcxgJIAEoBRIRCgliYXRocm9vbXMYCiABKAESFgoObWFpbl9pbWFnZV91cmwYCyABKAkSKgoGaW1hZ2VzGAwgAygLMhoucHJvcGVydHkudjEuUHJvcGVydHlJbWFnZRIMCgR0eXBlGA0gASgJEjAKDW93bmVyX2NvbnRhY3QYDiABKAsyGS5wcm9wZXJ0eS52MS5Pd25lckNvbnRhY3QiYAoNUHJvcGVydHlJbWFnZRIKCgJpZBgBIAEoCRITCgtwcm9wZXJ0eV9pZBgCIAEoCRILCgN1cmwYAyABKAkSDwoHaXNfbWFpbhgEIAEoCBIQCghwb3NpdGlvbhgFIAEoBSJOCgxPd25lckNvbnRhY3QSDAoEbmFtZRgBIAEoCRINCgVlbWFpbBgCIAEoCRINCgVwaG9uZRgDIAEoCRISCgphdmF0YXJfdXJsGAQgASgJIqABChVDcmVhdGVQcm9wZXJ0eVJlcXVlc3QSDQoFdGl0bGUYASABKAkSEQoJc2l6ZV9zcV9tGAIgASgBEhMKC2Rlc2NyaXB0aW9uGAMgASgJEg0KBXByaWNlGAQgASgJEhAKCGJlZHJvb21zGAYgASgFEhEKCWJhdGhyb29tcxgHIAEoARIMCgR0eXBlGAggASgJSgQIBRAGUghvd25lcl9pZCIkChZHZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0EgoKAmlkGAEgASgJIkcKFkdldFByb3BlcnR5TGlzdFJlcXVlc3QSDgoGY3Vyc29yGAEgASgJEg0KBWxpbWl0GAIgASgFEg4KBnNlYXJjaBgDIAEoCSJuChdHZXRQcm9wZXJ0eUxpc3RSZXNwb25zZRIpCgpwcm9wZXJ0aWVzGAEgAygLMhUucHJvcGVydHkudjEuUHJvcGVydHkSEwoLbmV4dF9jdXJzb3IYAiABKAkSEwoLdG90YWxfY291bnQYAyABKAUioAEKGVVwZGF0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkSEQoJc2l6ZV9zcV9tGAMgASgBEhMKC2Rlc2NyaXB0aW9uGAQgASgJEg0KBXByaWNlGAUgASgJEhAKCGJlZHJvb21zGAYgASgFEhEKCWJhdGhyb29tcxgHIAEoARIMCgR0eXBlGAggASgJIicKGURlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkiPgoaRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIkQKGUFkZFByb3BlcnR5RmVhdHVyZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEgoKZmVhdHVyZV9pZBgCIAEoBSJHChxSZW1vdmVQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEhIKCmZlYXR1cmVfaWQYAiABKAUiMgobTGlzdFByb3BlcnR5RmVhdHVyZXNSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJIkUKHExpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2USJQoIZmVhdHVyZXMYASADKAsyEy5mZWF0dXJlLnYxLkZlYXR1cmUiXgoXQWRkUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSCwoDdXJsGAIgASgJEg8KB2lzX21haW4YAyABKAgSEAoIcG9zaXRpb24YBCABKAUiQwoaUmVtb3ZlUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEAoIaW1hZ2VfaWQYAiABKAkiMAoZTGlzdFByb3BlcnR5SW1hZ2VzUmVxdWVzdBITCgtwcm9wZXJ0eV9pZBgBIAEoCSJIChpMaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZRIqCgZpbWFnZXMYASADKAsyGi5wcm9wZXJ0eS52MS5Qcm9wZXJ0eUltYWdlMoMMCg9Qcm9wZXJ0eVNlcnZpY2USZgoOQ3JlYXRlUHJvcGVydHkSIi5wcm9wZXJ0eS52MS5DcmVhdGVQcm9wZXJ0eVJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIZgtPkkwITOgEqIg4vdjEvcHJvcGVydGllcxJqCg9HZXRQcm9wZXJ0eUJ5SUQSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0GhUucHJvcGVydHkudjEuUHJvcGVydHkiG4LT5JMCFRITL3YxL3Byb3BlcnRpZXMve2lkfRJ0Cg9HZXRQcm9wZXJ0eUxpc3QSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUxpc3RSZXF1ZXN0GiQucHJvcGVydHkudjEuR2V0UHJvcGVydHlMaXN0UmVzcG9uc2UiFoLT5JMCEBIOL3YxL3Byb3BlcnRpZXMScwoSVXBkYXRlUHJvcGVydHlCeUlEEiYucHJvcGVydHkudjEuVXBkYXRlUHJvcGVydHlCeUlEUmVxdWVzdBoVLnByb3BlcnR5LnYxLlByb3BlcnR5Ih6C0+STAhg6ASoaEy92MS9wcm9wZXJ0aWVzL3tpZH0SggEKEkRlbGV0ZVByb3BlcnR5QnlJRBImLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QaJy5wcm9wZXJ0eS52MS5EZWxldGVQcm9wZXJ0eUJ5SURSZXNwb25zZSIbgtPkkwIVKhMvdjEvcHJvcGVydGllcy97aWR9EpkBChJBZGRQcm9wZXJ0eUZlYXR1cmUSJi5wcm9wZXJ0eS52MS5BZGRQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0GikucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXNwb25zZSIwgtPkkwIqOgEqIiUvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ZlYXR1cmVzEqcBChVSZW1vdmVQcm9wZXJ0eUZlYXR1cmUSKS5wcm9wZXJ0eS52MS5SZW1vdmVQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0GicucHJvcGVydHkudjEuRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2UiOoLT5JMCNCoyL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcy97ZmVhdHVyZV9pZH0SmgEKFExpc3RQcm9wZXJ0eUZlYXR1cmVzEigucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXF1ZXN0GikucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXNwb25zZSItgtPkkwInEiUvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ZlYXR1cmVzEpEBChBBZGRQcm9wZXJ0eUltYWdlEiQucHJvcGVydHkudjEuQWRkUHJvcGVydHlJbWFnZVJlcXVlc3QaJy5wcm9wZXJ0eS52MS5MaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZSIugtPkkwIoOgEqIiMvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ltYWdlcxKfAQoTUmVtb3ZlUHJvcGVydHlJbWFnZRInLnByb3BlcnR5LnYxLlJlbW92ZVByb3BlcnR5SW1hZ2VSZXF1ZXN0GicucHJvcGVydHkudjEuRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2UiNoLT5JMCMCouL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9pbWFnZXMve2ltYWdlX2lkfRKSAQoSTGlzdFByb3BlcnR5SW1hZ2VzEiYucHJvcGVydHkudjEuTGlzdFByb3BlcnR5SW1hZ2VzUmVxdWVzdBonLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUltYWdlc1Jlc3BvbnNlIiuC0+STAiUSIy92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vaW1hZ2VzQjtaOWdpdGh1Yi5jb20vc3VzaGlBbGlpL3Rvcm9nYW4tYmUvZ2VuL3Byb3BlcnR5djE7cHJvcGVydHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp, file_google_api_annotations, file_feature]);
 
 /**
  * 1. Core Data Structure (The base object shared across APIs)
@@ -95,6 +95,13 @@ export type Property = Message<"property.v1.Property"> & {
    * @generated from field: string type = 13;
    */
   type: string;
+
+  /**
+   * populated on GetPropertyByID only, and only for authenticated callers
+   *
+   * @generated from field: property.v1.OwnerContact owner_contact = 14;
+   */
+  ownerContact?: OwnerContact | undefined;
 };
 
 /**
@@ -142,6 +149,38 @@ export const PropertyImageSchema: GenMessage<PropertyImage> = /*@__PURE__*/
   messageDesc(file_property, 1);
 
 /**
+ * @generated from message property.v1.OwnerContact
+ */
+export type OwnerContact = Message<"property.v1.OwnerContact"> & {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * @generated from field: string email = 2;
+   */
+  email: string;
+
+  /**
+   * @generated from field: string phone = 3;
+   */
+  phone: string;
+
+  /**
+   * @generated from field: string avatar_url = 4;
+   */
+  avatarUrl: string;
+};
+
+/**
+ * Describes the message property.v1.OwnerContact.
+ * Use `create(OwnerContactSchema)` to create a new message.
+ */
+export const OwnerContactSchema: GenMessage<OwnerContact> = /*@__PURE__*/
+  messageDesc(file_property, 2);
+
+/**
  * @generated from message property.v1.CreatePropertyRequest
  */
 export type CreatePropertyRequest = Message<"property.v1.CreatePropertyRequest"> & {
@@ -166,11 +205,6 @@ export type CreatePropertyRequest = Message<"property.v1.CreatePropertyRequest">
   price: string;
 
   /**
-   * @generated from field: string owner_id = 5;
-   */
-  ownerId: string;
-
-  /**
    * @generated from field: int32 bedrooms = 6;
    */
   bedrooms: number;
@@ -193,7 +227,7 @@ export type CreatePropertyRequest = Message<"property.v1.CreatePropertyRequest">
  * Use `create(CreatePropertyRequestSchema)` to create a new message.
  */
 export const CreatePropertyRequestSchema: GenMessage<CreatePropertyRequest> = /*@__PURE__*/
-  messageDesc(file_property, 2);
+  messageDesc(file_property, 3);
 
 /**
  * @generated from message property.v1.GetPropertyByIDRequest
@@ -210,7 +244,7 @@ export type GetPropertyByIDRequest = Message<"property.v1.GetPropertyByIDRequest
  * Use `create(GetPropertyByIDRequestSchema)` to create a new message.
  */
 export const GetPropertyByIDRequestSchema: GenMessage<GetPropertyByIDRequest> = /*@__PURE__*/
-  messageDesc(file_property, 3);
+  messageDesc(file_property, 4);
 
 /**
  * @generated from message property.v1.GetPropertyListRequest
@@ -237,7 +271,7 @@ export type GetPropertyListRequest = Message<"property.v1.GetPropertyListRequest
  * Use `create(GetPropertyListRequestSchema)` to create a new message.
  */
 export const GetPropertyListRequestSchema: GenMessage<GetPropertyListRequest> = /*@__PURE__*/
-  messageDesc(file_property, 4);
+  messageDesc(file_property, 5);
 
 /**
  * @generated from message property.v1.GetPropertyListResponse
@@ -264,7 +298,7 @@ export type GetPropertyListResponse = Message<"property.v1.GetPropertyListRespon
  * Use `create(GetPropertyListResponseSchema)` to create a new message.
  */
 export const GetPropertyListResponseSchema: GenMessage<GetPropertyListResponse> = /*@__PURE__*/
-  messageDesc(file_property, 5);
+  messageDesc(file_property, 6);
 
 /**
  * @generated from message property.v1.UpdatePropertyByIDRequest
@@ -318,7 +352,7 @@ export type UpdatePropertyByIDRequest = Message<"property.v1.UpdatePropertyByIDR
  * Use `create(UpdatePropertyByIDRequestSchema)` to create a new message.
  */
 export const UpdatePropertyByIDRequestSchema: GenMessage<UpdatePropertyByIDRequest> = /*@__PURE__*/
-  messageDesc(file_property, 6);
+  messageDesc(file_property, 7);
 
 /**
  * 6. DELETE ENDPOINT MESSAGES
@@ -337,7 +371,7 @@ export type DeletePropertyByIDRequest = Message<"property.v1.DeletePropertyByIDR
  * Use `create(DeletePropertyByIDRequestSchema)` to create a new message.
  */
 export const DeletePropertyByIDRequestSchema: GenMessage<DeletePropertyByIDRequest> = /*@__PURE__*/
-  messageDesc(file_property, 7);
+  messageDesc(file_property, 8);
 
 /**
  * @generated from message property.v1.DeletePropertyByIDResponse
@@ -359,7 +393,7 @@ export type DeletePropertyByIDResponse = Message<"property.v1.DeletePropertyByID
  * Use `create(DeletePropertyByIDResponseSchema)` to create a new message.
  */
 export const DeletePropertyByIDResponseSchema: GenMessage<DeletePropertyByIDResponse> = /*@__PURE__*/
-  messageDesc(file_property, 8);
+  messageDesc(file_property, 9);
 
 /**
  * 7. PROPERTY <-> FEATURE SUB-RESOURCE MESSAGES
@@ -383,7 +417,7 @@ export type AddPropertyFeatureRequest = Message<"property.v1.AddPropertyFeatureR
  * Use `create(AddPropertyFeatureRequestSchema)` to create a new message.
  */
 export const AddPropertyFeatureRequestSchema: GenMessage<AddPropertyFeatureRequest> = /*@__PURE__*/
-  messageDesc(file_property, 9);
+  messageDesc(file_property, 10);
 
 /**
  * @generated from message property.v1.RemovePropertyFeatureRequest
@@ -405,7 +439,7 @@ export type RemovePropertyFeatureRequest = Message<"property.v1.RemovePropertyFe
  * Use `create(RemovePropertyFeatureRequestSchema)` to create a new message.
  */
 export const RemovePropertyFeatureRequestSchema: GenMessage<RemovePropertyFeatureRequest> = /*@__PURE__*/
-  messageDesc(file_property, 10);
+  messageDesc(file_property, 11);
 
 /**
  * @generated from message property.v1.ListPropertyFeaturesRequest
@@ -422,7 +456,7 @@ export type ListPropertyFeaturesRequest = Message<"property.v1.ListPropertyFeatu
  * Use `create(ListPropertyFeaturesRequestSchema)` to create a new message.
  */
 export const ListPropertyFeaturesRequestSchema: GenMessage<ListPropertyFeaturesRequest> = /*@__PURE__*/
-  messageDesc(file_property, 11);
+  messageDesc(file_property, 12);
 
 /**
  * @generated from message property.v1.ListPropertyFeaturesResponse
@@ -439,7 +473,7 @@ export type ListPropertyFeaturesResponse = Message<"property.v1.ListPropertyFeat
  * Use `create(ListPropertyFeaturesResponseSchema)` to create a new message.
  */
 export const ListPropertyFeaturesResponseSchema: GenMessage<ListPropertyFeaturesResponse> = /*@__PURE__*/
-  messageDesc(file_property, 12);
+  messageDesc(file_property, 13);
 
 /**
  * 8. PROPERTY <-> IMAGE SUB-RESOURCE MESSAGES
@@ -473,7 +507,7 @@ export type AddPropertyImageRequest = Message<"property.v1.AddPropertyImageReque
  * Use `create(AddPropertyImageRequestSchema)` to create a new message.
  */
 export const AddPropertyImageRequestSchema: GenMessage<AddPropertyImageRequest> = /*@__PURE__*/
-  messageDesc(file_property, 13);
+  messageDesc(file_property, 14);
 
 /**
  * @generated from message property.v1.RemovePropertyImageRequest
@@ -495,7 +529,7 @@ export type RemovePropertyImageRequest = Message<"property.v1.RemovePropertyImag
  * Use `create(RemovePropertyImageRequestSchema)` to create a new message.
  */
 export const RemovePropertyImageRequestSchema: GenMessage<RemovePropertyImageRequest> = /*@__PURE__*/
-  messageDesc(file_property, 14);
+  messageDesc(file_property, 15);
 
 /**
  * @generated from message property.v1.ListPropertyImagesRequest
@@ -512,7 +546,7 @@ export type ListPropertyImagesRequest = Message<"property.v1.ListPropertyImagesR
  * Use `create(ListPropertyImagesRequestSchema)` to create a new message.
  */
 export const ListPropertyImagesRequestSchema: GenMessage<ListPropertyImagesRequest> = /*@__PURE__*/
-  messageDesc(file_property, 15);
+  messageDesc(file_property, 16);
 
 /**
  * @generated from message property.v1.ListPropertyImagesResponse
@@ -529,7 +563,7 @@ export type ListPropertyImagesResponse = Message<"property.v1.ListPropertyImages
  * Use `create(ListPropertyImagesResponseSchema)` to create a new message.
  */
 export const ListPropertyImagesResponseSchema: GenMessage<ListPropertyImagesResponse> = /*@__PURE__*/
-  messageDesc(file_property, 16);
+  messageDesc(file_property, 17);
 
 /**
  * @generated from service property.v1.PropertyService
