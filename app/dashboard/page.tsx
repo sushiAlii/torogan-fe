@@ -1,6 +1,7 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { UploadCloud, X, ImageIcon, Check } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { Button } from '@/components/ui/button'
@@ -14,13 +15,30 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useAuth } from '@/lib/auth/auth-context'
 
 type Preview = { id: string; url: string; name: string }
 
 export default function DashboardPage() {
+  const router = useRouter()
+  const { status } = useAuth()
   const [previews, setPreviews] = useState<Preview[]>([])
   const [submitted, setSubmitted] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/sign-in')
+    }
+  }, [status, router])
+
+  if (status !== 'authenticated') {
+    return (
+      <div className="min-h-screen">
+        <SiteHeader />
+      </div>
+    )
+  }
 
   function handleFiles(files: FileList | null) {
     if (!files) return
