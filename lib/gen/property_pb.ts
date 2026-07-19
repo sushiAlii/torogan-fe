@@ -15,7 +15,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file property.proto.
  */
 export const file_property: GenFile = /*@__PURE__*/
-  fileDesc("Cg5wcm9wZXJ0eS5wcm90bxILcHJvcGVydHkudjEi9wIKCFByb3BlcnR5EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhEKCXNpemVfc3FfbRgDIAEoARITCgtkZXNjcmlwdGlvbhgEIAEoCRINCgVwcmljZRgFIAEoCRIQCghvd25lcl9pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghiZWRyb29tcxgJIAEoBRIRCgliYXRocm9vbXMYCiABKAESFgoObWFpbl9pbWFnZV91cmwYCyABKAkSKgoGaW1hZ2VzGAwgAygLMhoucHJvcGVydHkudjEuUHJvcGVydHlJbWFnZRIMCgR0eXBlGA0gASgJEjAKDW93bmVyX2NvbnRhY3QYDiABKAsyGS5wcm9wZXJ0eS52MS5Pd25lckNvbnRhY3QiYAoNUHJvcGVydHlJbWFnZRIKCgJpZBgBIAEoCRITCgtwcm9wZXJ0eV9pZBgCIAEoCRILCgN1cmwYAyABKAkSDwoHaXNfbWFpbhgEIAEoCBIQCghwb3NpdGlvbhgFIAEoBSJOCgxPd25lckNvbnRhY3QSDAoEbmFtZRgBIAEoCRINCgVlbWFpbBgCIAEoCRINCgVwaG9uZRgDIAEoCRISCgphdmF0YXJfdXJsGAQgASgJIqABChVDcmVhdGVQcm9wZXJ0eVJlcXVlc3QSDQoFdGl0bGUYASABKAkSEQoJc2l6ZV9zcV9tGAIgASgBEhMKC2Rlc2NyaXB0aW9uGAMgASgJEg0KBXByaWNlGAQgASgJEhAKCGJlZHJvb21zGAYgASgFEhEKCWJhdGhyb29tcxgHIAEoARIMCgR0eXBlGAggASgJSgQIBRAGUghvd25lcl9pZCIkChZHZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0EgoKAmlkGAEgASgJIkcKFkdldFByb3BlcnR5TGlzdFJlcXVlc3QSDgoGY3Vyc29yGAEgASgJEg0KBWxpbWl0GAIgASgFEg4KBnNlYXJjaBgDIAEoCSJuChdHZXRQcm9wZXJ0eUxpc3RSZXNwb25zZRIpCgpwcm9wZXJ0aWVzGAEgAygLMhUucHJvcGVydHkudjEuUHJvcGVydHkSEwoLbmV4dF9jdXJzb3IYAiABKAkSEwoLdG90YWxfY291bnQYAyABKAUioAEKGVVwZGF0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkSEQoJc2l6ZV9zcV9tGAMgASgBEhMKC2Rlc2NyaXB0aW9uGAQgASgJEg0KBXByaWNlGAUgASgJEhAKCGJlZHJvb21zGAYgASgFEhEKCWJhdGhyb29tcxgHIAEoARIMCgR0eXBlGAggASgJIicKGURlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkiPgoaRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIkQKGUFkZFByb3BlcnR5RmVhdHVyZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEgoKZmVhdHVyZV9pZBgCIAEoBSJHChxSZW1vdmVQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEhIKCmZlYXR1cmVfaWQYAiABKAUiMgobTGlzdFByb3BlcnR5RmVhdHVyZXNSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJIkUKHExpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2USJQoIZmVhdHVyZXMYASADKAsyEy5mZWF0dXJlLnYxLkZlYXR1cmUiXgoXQWRkUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSCwoDdXJsGAIgASgJEg8KB2lzX21haW4YAyABKAgSEAoIcG9zaXRpb24YBCABKAUiQwoaUmVtb3ZlUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEAoIaW1hZ2VfaWQYAiABKAkiMAoZTGlzdFByb3BlcnR5SW1hZ2VzUmVxdWVzdBITCgtwcm9wZXJ0eV9pZBgBIAEoCSJIChpMaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZRIqCgZpbWFnZXMYASADKAsyGi5wcm9wZXJ0eS52MS5Qcm9wZXJ0eUltYWdlMoMMCg9Qcm9wZXJ0eVNlcnZpY2USZgoOQ3JlYXRlUHJvcGVydHkSIi5wcm9wZXJ0eS52MS5DcmVhdGVQcm9wZXJ0eVJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIZgtPkkwITOgEqIg4vdjEvcHJvcGVydGllcxJqCg9HZXRQcm9wZXJ0eUJ5SUQSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0GhUucHJvcGVydHkudjEuUHJvcGVydHkiG4LT5JMCFRITL3YxL3Byb3BlcnRpZXMve2lkfRJ0Cg9HZXRQcm9wZXJ0eUxpc3QSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUxpc3RSZXF1ZXN0GiQucHJvcGVydHkudjEuR2V0UHJvcGVydHlMaXN0UmVzcG9uc2UiFoLT5JMCEBIOL3YxL3Byb3BlcnRpZXMScwoSVXBkYXRlUHJvcGVydHlCeUlEEiYucHJvcGVydHkudjEuVXBkYXRlUHJvcGVydHlCeUlEUmVxdWVzdBoVLnByb3BlcnR5LnYxLlByb3BlcnR5Ih6C0+STAhg6ASoaEy92MS9wcm9wZXJ0aWVzL3tpZH0SggEKEkRlbGV0ZVByb3BlcnR5QnlJRBImLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QaJy5wcm9wZXJ0eS52MS5EZWxldGVQcm9wZXJ0eUJ5SURSZXNwb25zZSIbgtPkkwIVKhMvdjEvcHJvcGVydGllcy97aWR9EpkBChJBZGRQcm9wZXJ0eUZlYXR1cmUSJi5wcm9wZXJ0eS52MS5BZGRQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0GikucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXNwb25zZSIwgtPkkwIqOgEqIiUvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ZlYXR1cmVzEqcBChVSZW1vdmVQcm9wZXJ0eUZlYXR1cmUSKS5wcm9wZXJ0eS52MS5SZW1vdmVQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0GicucHJvcGVydHkudjEuRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2UiOoLT5JMCNCoyL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcy97ZmVhdHVyZV9pZH0SmgEKFExpc3RQcm9wZXJ0eUZlYXR1cmVzEigucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXF1ZXN0GikucHJvcGVydHkudjEuTGlzdFByb3BlcnR5RmVhdHVyZXNSZXNwb25zZSItgtPkkwInEiUvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ZlYXR1cmVzEpEBChBBZGRQcm9wZXJ0eUltYWdlEiQucHJvcGVydHkudjEuQWRkUHJvcGVydHlJbWFnZVJlcXVlc3QaJy5wcm9wZXJ0eS52MS5MaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZSIugtPkkwIoOgEqIiMvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ltYWdlcxKfAQoTUmVtb3ZlUHJvcGVydHlJbWFnZRInLnByb3BlcnR5LnYxLlJlbW92ZVByb3BlcnR5SW1hZ2VSZXF1ZXN0GicucHJvcGVydHkudjEuRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2UiNoLT5JMCMCouL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9pbWFnZXMve2ltYWdlX2lkfRKSAQoSTGlzdFByb3BlcnR5SW1hZ2VzEiYucHJvcGVydHkudjEuTGlzdFByb3BlcnR5SW1hZ2VzUmVxdWVzdBonLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUltYWdlc1Jlc3BvbnNlIiuC0+STAiUSIy92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vaW1hZ2VzQjtaOWdpdGh1Yi5jb20vc3VzaGlBbGlpL3Rvcm9nYW4tYmUvZ2VuL3Byb3BlcnR5djE7cHJvcGVydHl2MWIGcHJvdG8z", [file_google_protobuf_timestamp, file_google_api_annotations, file_feature]);
+  fileDesc("Cg5wcm9wZXJ0eS5wcm90bxILcHJvcGVydHkudjEiygMKCFByb3BlcnR5EgoKAmlkGAEgASgJEg0KBXRpdGxlGAIgASgJEhEKCXNpemVfc3FfbRgDIAEoARITCgtkZXNjcmlwdGlvbhgEIAEoCRINCgVwcmljZRgFIAEoCRIQCghvd25lcl9pZBgGIAEoCRIuCgpjcmVhdGVkX2F0GAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghiZWRyb29tcxgJIAEoBRIRCgliYXRocm9vbXMYCiABKAESFgoObWFpbl9pbWFnZV91cmwYCyABKAkSKgoGaW1hZ2VzGAwgAygLMhoucHJvcGVydHkudjEuUHJvcGVydHlJbWFnZRIMCgR0eXBlGA0gASgJEjAKDW93bmVyX2NvbnRhY3QYDiABKAsyGS5wcm9wZXJ0eS52MS5Pd25lckNvbnRhY3QSLgoKZXhwaXJlc19hdBgPIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEQoJaXNfcmVudGVkGBAgASgIEg4KBnN0YXR1cxgRIAEoCSJgCg1Qcm9wZXJ0eUltYWdlEgoKAmlkGAEgASgJEhMKC3Byb3BlcnR5X2lkGAIgASgJEgsKA3VybBgDIAEoCRIPCgdpc19tYWluGAQgASgIEhAKCHBvc2l0aW9uGAUgASgFIk4KDE93bmVyQ29udGFjdBIMCgRuYW1lGAEgASgJEg0KBWVtYWlsGAIgASgJEg0KBXBob25lGAMgASgJEhIKCmF2YXRhcl91cmwYBCABKAkiuQEKFUNyZWF0ZVByb3BlcnR5UmVxdWVzdBINCgV0aXRsZRgBIAEoCRIRCglzaXplX3NxX20YAiABKAESEwoLZGVzY3JpcHRpb24YAyABKAkSDQoFcHJpY2UYBCABKAkSEAoIYmVkcm9vbXMYBiABKAUSEQoJYmF0aHJvb21zGAcgASgBEgwKBHR5cGUYCCABKAkSFwoPZXhwaXJhdGlvbl9kYXlzGAkgASgFSgQIBRAGUghvd25lcl9pZCIkChZHZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0EgoKAmlkGAEgASgJIkcKFkdldFByb3BlcnR5TGlzdFJlcXVlc3QSDgoGY3Vyc29yGAEgASgJEg0KBWxpbWl0GAIgASgFEg4KBnNlYXJjaBgDIAEoCSJuChdHZXRQcm9wZXJ0eUxpc3RSZXNwb25zZRIpCgpwcm9wZXJ0aWVzGAEgAygLMhUucHJvcGVydHkudjEuUHJvcGVydHkSEwoLbmV4dF9jdXJzb3IYAiABKAkSEwoLdG90YWxfY291bnQYAyABKAUioAEKGVVwZGF0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkSDQoFdGl0bGUYAiABKAkSEQoJc2l6ZV9zcV9tGAMgASgBEhMKC2Rlc2NyaXB0aW9uGAQgASgJEg0KBXByaWNlGAUgASgJEhAKCGJlZHJvb21zGAYgASgFEhEKCWJhdGhyb29tcxgHIAEoARIMCgR0eXBlGAggASgJIicKGURlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QSCgoCaWQYASABKAkiPgoaRGVsZXRlUHJvcGVydHlCeUlEUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJIhoKGEdldE15UHJvcGVydHlMaXN0UmVxdWVzdCJGChlHZXRNeVByb3BlcnR5TGlzdFJlc3BvbnNlEikKCnByb3BlcnRpZXMYASADKAsyFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSI7ChRSZW5ld1Byb3BlcnR5UmVxdWVzdBIKCgJpZBgBIAEoCRIXCg9leHBpcmF0aW9uX2RheXMYAiABKAUiJwoZTWFya1Byb3BlcnR5UmVudGVkUmVxdWVzdBIKCgJpZBgBIAEoCSIqChxNYXJrUHJvcGVydHlBdmFpbGFibGVSZXF1ZXN0EgoKAmlkGAEgASgJIkQKGUFkZFByb3BlcnR5RmVhdHVyZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEgoKZmVhdHVyZV9pZBgCIAEoBSJHChxSZW1vdmVQcm9wZXJ0eUZlYXR1cmVSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJEhIKCmZlYXR1cmVfaWQYAiABKAUiMgobTGlzdFByb3BlcnR5RmVhdHVyZXNSZXF1ZXN0EhMKC3Byb3BlcnR5X2lkGAEgASgJIkUKHExpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2USJQoIZmVhdHVyZXMYASADKAsyEy5mZWF0dXJlLnYxLkZlYXR1cmUiXgoXQWRkUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSCwoDdXJsGAIgASgJEg8KB2lzX21haW4YAyABKAgSEAoIcG9zaXRpb24YBCABKAUiQwoaUmVtb3ZlUHJvcGVydHlJbWFnZVJlcXVlc3QSEwoLcHJvcGVydHlfaWQYASABKAkSEAoIaW1hZ2VfaWQYAiABKAkiMAoZTGlzdFByb3BlcnR5SW1hZ2VzUmVxdWVzdBITCgtwcm9wZXJ0eV9pZBgBIAEoCSJIChpMaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZRIqCgZpbWFnZXMYASADKAsyGi5wcm9wZXJ0eS52MS5Qcm9wZXJ0eUltYWdlMvAPCg9Qcm9wZXJ0eVNlcnZpY2USZgoOQ3JlYXRlUHJvcGVydHkSIi5wcm9wZXJ0eS52MS5DcmVhdGVQcm9wZXJ0eVJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIZgtPkkwITOgEqIg4vdjEvcHJvcGVydGllcxJqCg9HZXRQcm9wZXJ0eUJ5SUQSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUJ5SURSZXF1ZXN0GhUucHJvcGVydHkudjEuUHJvcGVydHkiG4LT5JMCFRITL3YxL3Byb3BlcnRpZXMve2lkfRJ0Cg9HZXRQcm9wZXJ0eUxpc3QSIy5wcm9wZXJ0eS52MS5HZXRQcm9wZXJ0eUxpc3RSZXF1ZXN0GiQucHJvcGVydHkudjEuR2V0UHJvcGVydHlMaXN0UmVzcG9uc2UiFoLT5JMCEBIOL3YxL3Byb3BlcnRpZXMScwoSVXBkYXRlUHJvcGVydHlCeUlEEiYucHJvcGVydHkudjEuVXBkYXRlUHJvcGVydHlCeUlEUmVxdWVzdBoVLnByb3BlcnR5LnYxLlByb3BlcnR5Ih6C0+STAhg6ASoaEy92MS9wcm9wZXJ0aWVzL3tpZH0SggEKEkRlbGV0ZVByb3BlcnR5QnlJRBImLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlcXVlc3QaJy5wcm9wZXJ0eS52MS5EZWxldGVQcm9wZXJ0eUJ5SURSZXNwb25zZSIbgtPkkwIVKhMvdjEvcHJvcGVydGllcy97aWR9En0KEUdldE15UHJvcGVydHlMaXN0EiUucHJvcGVydHkudjEuR2V0TXlQcm9wZXJ0eUxpc3RSZXF1ZXN0GiYucHJvcGVydHkudjEuR2V0TXlQcm9wZXJ0eUxpc3RSZXNwb25zZSIZgtPkkwITEhEvdjEvbXktcHJvcGVydGllcxJvCg1SZW5ld1Byb3BlcnR5EiEucHJvcGVydHkudjEuUmVuZXdQcm9wZXJ0eVJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIkgtPkkwIeOgEqIhkvdjEvcHJvcGVydGllcy97aWR9L3JlbmV3EngKEk1hcmtQcm9wZXJ0eVJlbnRlZBImLnByb3BlcnR5LnYxLk1hcmtQcm9wZXJ0eVJlbnRlZFJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIjgtPkkwIdOgEqIhgvdjEvcHJvcGVydGllcy97aWR9L3JlbnQSgAEKFU1hcmtQcm9wZXJ0eUF2YWlsYWJsZRIpLnByb3BlcnR5LnYxLk1hcmtQcm9wZXJ0eUF2YWlsYWJsZVJlcXVlc3QaFS5wcm9wZXJ0eS52MS5Qcm9wZXJ0eSIlgtPkkwIfOgEqIhovdjEvcHJvcGVydGllcy97aWR9L3VucmVudBKZAQoSQWRkUHJvcGVydHlGZWF0dXJlEiYucHJvcGVydHkudjEuQWRkUHJvcGVydHlGZWF0dXJlUmVxdWVzdBopLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2UiMILT5JMCKjoBKiIlL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcxKnAQoVUmVtb3ZlUHJvcGVydHlGZWF0dXJlEikucHJvcGVydHkudjEuUmVtb3ZlUHJvcGVydHlGZWF0dXJlUmVxdWVzdBonLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlc3BvbnNlIjqC0+STAjQqMi92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vZmVhdHVyZXMve2ZlYXR1cmVfaWR9EpoBChRMaXN0UHJvcGVydHlGZWF0dXJlcxIoLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVxdWVzdBopLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUZlYXR1cmVzUmVzcG9uc2UiLYLT5JMCJxIlL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9mZWF0dXJlcxKRAQoQQWRkUHJvcGVydHlJbWFnZRIkLnByb3BlcnR5LnYxLkFkZFByb3BlcnR5SW1hZ2VSZXF1ZXN0GicucHJvcGVydHkudjEuTGlzdFByb3BlcnR5SW1hZ2VzUmVzcG9uc2UiLoLT5JMCKDoBKiIjL3YxL3Byb3BlcnRpZXMve3Byb3BlcnR5X2lkfS9pbWFnZXMSnwEKE1JlbW92ZVByb3BlcnR5SW1hZ2USJy5wcm9wZXJ0eS52MS5SZW1vdmVQcm9wZXJ0eUltYWdlUmVxdWVzdBonLnByb3BlcnR5LnYxLkRlbGV0ZVByb3BlcnR5QnlJRFJlc3BvbnNlIjaC0+STAjAqLi92MS9wcm9wZXJ0aWVzL3twcm9wZXJ0eV9pZH0vaW1hZ2VzL3tpbWFnZV9pZH0SkgEKEkxpc3RQcm9wZXJ0eUltYWdlcxImLnByb3BlcnR5LnYxLkxpc3RQcm9wZXJ0eUltYWdlc1JlcXVlc3QaJy5wcm9wZXJ0eS52MS5MaXN0UHJvcGVydHlJbWFnZXNSZXNwb25zZSIrgtPkkwIlEiMvdjEvcHJvcGVydGllcy97cHJvcGVydHlfaWR9L2ltYWdlc0I7WjlnaXRodWIuY29tL3N1c2hpQWxpaS90b3JvZ2FuLWJlL2dlbi9wcm9wZXJ0eXYxO3Byb3BlcnR5djFiBnByb3RvMw", [file_google_protobuf_timestamp, file_google_api_annotations, file_feature]);
 
 /**
  * 1. Core Data Structure (The base object shared across APIs)
@@ -102,6 +102,23 @@ export type Property = Message<"property.v1.Property"> & {
    * @generated from field: property.v1.OwnerContact owner_contact = 14;
    */
   ownerContact?: OwnerContact | undefined;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp expires_at = 15;
+   */
+  expiresAt?: Timestamp | undefined;
+
+  /**
+   * @generated from field: bool is_rented = 16;
+   */
+  isRented: boolean;
+
+  /**
+   * one of: active, expired, rented — server-computed, read-only
+   *
+   * @generated from field: string status = 17;
+   */
+  status: string;
 };
 
 /**
@@ -220,6 +237,13 @@ export type CreatePropertyRequest = Message<"property.v1.CreatePropertyRequest">
    * @generated from field: string type = 8;
    */
   type: string;
+
+  /**
+   * one of: 7, 15, 30
+   *
+   * @generated from field: int32 expiration_days = 9;
+   */
+  expirationDays: number;
 };
 
 /**
@@ -396,6 +420,96 @@ export const DeletePropertyByIDResponseSchema: GenMessage<DeletePropertyByIDResp
   messageDesc(file_property, 9);
 
 /**
+ * 6b. OWNER-SCOPED LISTING MANAGEMENT MESSAGES
+ *
+ * @generated from message property.v1.GetMyPropertyListRequest
+ */
+export type GetMyPropertyListRequest = Message<"property.v1.GetMyPropertyListRequest"> & {
+};
+
+/**
+ * Describes the message property.v1.GetMyPropertyListRequest.
+ * Use `create(GetMyPropertyListRequestSchema)` to create a new message.
+ */
+export const GetMyPropertyListRequestSchema: GenMessage<GetMyPropertyListRequest> = /*@__PURE__*/
+  messageDesc(file_property, 10);
+
+/**
+ * @generated from message property.v1.GetMyPropertyListResponse
+ */
+export type GetMyPropertyListResponse = Message<"property.v1.GetMyPropertyListResponse"> & {
+  /**
+   * @generated from field: repeated property.v1.Property properties = 1;
+   */
+  properties: Property[];
+};
+
+/**
+ * Describes the message property.v1.GetMyPropertyListResponse.
+ * Use `create(GetMyPropertyListResponseSchema)` to create a new message.
+ */
+export const GetMyPropertyListResponseSchema: GenMessage<GetMyPropertyListResponse> = /*@__PURE__*/
+  messageDesc(file_property, 11);
+
+/**
+ * @generated from message property.v1.RenewPropertyRequest
+ */
+export type RenewPropertyRequest = Message<"property.v1.RenewPropertyRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * one of: 7, 15, 30
+   *
+   * @generated from field: int32 expiration_days = 2;
+   */
+  expirationDays: number;
+};
+
+/**
+ * Describes the message property.v1.RenewPropertyRequest.
+ * Use `create(RenewPropertyRequestSchema)` to create a new message.
+ */
+export const RenewPropertyRequestSchema: GenMessage<RenewPropertyRequest> = /*@__PURE__*/
+  messageDesc(file_property, 12);
+
+/**
+ * @generated from message property.v1.MarkPropertyRentedRequest
+ */
+export type MarkPropertyRentedRequest = Message<"property.v1.MarkPropertyRentedRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message property.v1.MarkPropertyRentedRequest.
+ * Use `create(MarkPropertyRentedRequestSchema)` to create a new message.
+ */
+export const MarkPropertyRentedRequestSchema: GenMessage<MarkPropertyRentedRequest> = /*@__PURE__*/
+  messageDesc(file_property, 13);
+
+/**
+ * @generated from message property.v1.MarkPropertyAvailableRequest
+ */
+export type MarkPropertyAvailableRequest = Message<"property.v1.MarkPropertyAvailableRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message property.v1.MarkPropertyAvailableRequest.
+ * Use `create(MarkPropertyAvailableRequestSchema)` to create a new message.
+ */
+export const MarkPropertyAvailableRequestSchema: GenMessage<MarkPropertyAvailableRequest> = /*@__PURE__*/
+  messageDesc(file_property, 14);
+
+/**
  * 7. PROPERTY <-> FEATURE SUB-RESOURCE MESSAGES
  *
  * @generated from message property.v1.AddPropertyFeatureRequest
@@ -417,7 +531,7 @@ export type AddPropertyFeatureRequest = Message<"property.v1.AddPropertyFeatureR
  * Use `create(AddPropertyFeatureRequestSchema)` to create a new message.
  */
 export const AddPropertyFeatureRequestSchema: GenMessage<AddPropertyFeatureRequest> = /*@__PURE__*/
-  messageDesc(file_property, 10);
+  messageDesc(file_property, 15);
 
 /**
  * @generated from message property.v1.RemovePropertyFeatureRequest
@@ -439,7 +553,7 @@ export type RemovePropertyFeatureRequest = Message<"property.v1.RemovePropertyFe
  * Use `create(RemovePropertyFeatureRequestSchema)` to create a new message.
  */
 export const RemovePropertyFeatureRequestSchema: GenMessage<RemovePropertyFeatureRequest> = /*@__PURE__*/
-  messageDesc(file_property, 11);
+  messageDesc(file_property, 16);
 
 /**
  * @generated from message property.v1.ListPropertyFeaturesRequest
@@ -456,7 +570,7 @@ export type ListPropertyFeaturesRequest = Message<"property.v1.ListPropertyFeatu
  * Use `create(ListPropertyFeaturesRequestSchema)` to create a new message.
  */
 export const ListPropertyFeaturesRequestSchema: GenMessage<ListPropertyFeaturesRequest> = /*@__PURE__*/
-  messageDesc(file_property, 12);
+  messageDesc(file_property, 17);
 
 /**
  * @generated from message property.v1.ListPropertyFeaturesResponse
@@ -473,7 +587,7 @@ export type ListPropertyFeaturesResponse = Message<"property.v1.ListPropertyFeat
  * Use `create(ListPropertyFeaturesResponseSchema)` to create a new message.
  */
 export const ListPropertyFeaturesResponseSchema: GenMessage<ListPropertyFeaturesResponse> = /*@__PURE__*/
-  messageDesc(file_property, 13);
+  messageDesc(file_property, 18);
 
 /**
  * 8. PROPERTY <-> IMAGE SUB-RESOURCE MESSAGES
@@ -507,7 +621,7 @@ export type AddPropertyImageRequest = Message<"property.v1.AddPropertyImageReque
  * Use `create(AddPropertyImageRequestSchema)` to create a new message.
  */
 export const AddPropertyImageRequestSchema: GenMessage<AddPropertyImageRequest> = /*@__PURE__*/
-  messageDesc(file_property, 14);
+  messageDesc(file_property, 19);
 
 /**
  * @generated from message property.v1.RemovePropertyImageRequest
@@ -529,7 +643,7 @@ export type RemovePropertyImageRequest = Message<"property.v1.RemovePropertyImag
  * Use `create(RemovePropertyImageRequestSchema)` to create a new message.
  */
 export const RemovePropertyImageRequestSchema: GenMessage<RemovePropertyImageRequest> = /*@__PURE__*/
-  messageDesc(file_property, 15);
+  messageDesc(file_property, 20);
 
 /**
  * @generated from message property.v1.ListPropertyImagesRequest
@@ -546,7 +660,7 @@ export type ListPropertyImagesRequest = Message<"property.v1.ListPropertyImagesR
  * Use `create(ListPropertyImagesRequestSchema)` to create a new message.
  */
 export const ListPropertyImagesRequestSchema: GenMessage<ListPropertyImagesRequest> = /*@__PURE__*/
-  messageDesc(file_property, 16);
+  messageDesc(file_property, 21);
 
 /**
  * @generated from message property.v1.ListPropertyImagesResponse
@@ -563,7 +677,7 @@ export type ListPropertyImagesResponse = Message<"property.v1.ListPropertyImages
  * Use `create(ListPropertyImagesResponseSchema)` to create a new message.
  */
 export const ListPropertyImagesResponseSchema: GenMessage<ListPropertyImagesResponse> = /*@__PURE__*/
-  messageDesc(file_property, 17);
+  messageDesc(file_property, 22);
 
 /**
  * @generated from service property.v1.PropertyService
@@ -608,6 +722,38 @@ export const PropertyService: GenService<{
     methodKind: "unary";
     input: typeof DeletePropertyByIDRequestSchema;
     output: typeof DeletePropertyByIDResponseSchema;
+  },
+  /**
+   * @generated from rpc property.v1.PropertyService.GetMyPropertyList
+   */
+  getMyPropertyList: {
+    methodKind: "unary";
+    input: typeof GetMyPropertyListRequestSchema;
+    output: typeof GetMyPropertyListResponseSchema;
+  },
+  /**
+   * @generated from rpc property.v1.PropertyService.RenewProperty
+   */
+  renewProperty: {
+    methodKind: "unary";
+    input: typeof RenewPropertyRequestSchema;
+    output: typeof PropertySchema;
+  },
+  /**
+   * @generated from rpc property.v1.PropertyService.MarkPropertyRented
+   */
+  markPropertyRented: {
+    methodKind: "unary";
+    input: typeof MarkPropertyRentedRequestSchema;
+    output: typeof PropertySchema;
+  },
+  /**
+   * @generated from rpc property.v1.PropertyService.MarkPropertyAvailable
+   */
+  markPropertyAvailable: {
+    methodKind: "unary";
+    input: typeof MarkPropertyAvailableRequestSchema;
+    output: typeof PropertySchema;
   },
   /**
    * @generated from rpc property.v1.PropertyService.AddPropertyFeature

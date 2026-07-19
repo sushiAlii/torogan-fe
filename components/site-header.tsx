@@ -34,6 +34,14 @@ export function SiteHeader() {
           >
             List a property
           </Link>
+          {status === 'authenticated' && (
+            <Link
+              href="/my-listings"
+              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              My listings
+            </Link>
+          )}
         </nav>
 
         <div className="flex items-center gap-2">

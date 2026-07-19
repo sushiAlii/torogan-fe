@@ -25,6 +25,7 @@ import { useAddPropertyFeature } from "@/hooks/properties/useAddPropertyFeature"
 import { useCreateAddress } from "@/hooks/addresses/useCreateAddress";
 
 const PROPERTY_TYPES = ["Apartment", "Studio", "House", "Townhouse"] as const;
+const EXPIRATION_DAYS = [7, 15, 30] as const;
 
 const selectClassName =
   "h-8 w-full min-w-0 cursor-pointer rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
@@ -38,6 +39,8 @@ export default function DashboardPage() {
   const [title, setTitle] = useState("");
   const [type, setType] =
     useState<(typeof PROPERTY_TYPES)[number]>("Apartment");
+  const [expirationDays, setExpirationDays] =
+    useState<(typeof EXPIRATION_DAYS)[number]>(30);
   const [price, setPrice] = useState("");
   const [sizeSqM, setSizeSqM] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -103,6 +106,7 @@ export default function DashboardPage() {
         bedrooms: bedrooms ? Number(bedrooms) : 0,
         bathrooms: bathrooms ? Number(bathrooms) : 0,
         description,
+        expirationDays,
       });
 
       // Sequential, not Promise.all: each add is a read-count-then-insert
@@ -197,7 +201,7 @@ export default function DashboardPage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <div className="space-y-2">
                     <Label htmlFor="type">Property type</Label>
                     <select
@@ -236,6 +240,28 @@ export default function DashboardPage() {
                         className="pl-7"
                       />
                     </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="expirationDays">Listing duration</Label>
+                    <select
+                      id="expirationDays"
+                      required
+                      value={expirationDays}
+                      onChange={(e) =>
+                        setExpirationDays(
+                          EXPIRATION_DAYS.find(
+                            (d) => String(d) === e.target.value,
+                          ) ?? EXPIRATION_DAYS[0],
+                        )
+                      }
+                      className={selectClassName}
+                    >
+                      {EXPIRATION_DAYS.map((d) => (
+                        <option key={d} value={d}>
+                          {d} days
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
