@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   ArrowLeft,
   MapPin,
@@ -13,43 +13,46 @@ import {
   Loader2,
   Phone,
   Mail,
-} from 'lucide-react'
-import { SiteHeader } from '@/components/site-header'
-import { ImageGallery } from '@/components/image-gallery'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { useAuth } from '@/lib/auth/auth-context'
-import { formatPrice } from '@/lib/format'
-import { useGetProperty } from '@/hooks/properties/useGetProperty'
-import { useGetPropertyFeatures } from '@/hooks/properties/useGetPropertyFeatures'
-import { useGetPropertyAddress } from '@/hooks/addresses/useGetPropertyAddress'
+} from "lucide-react";
+import { SiteHeader } from "@/components/site-header";
+import { ImageGallery } from "@/components/image-gallery";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/lib/auth/auth-context";
+import { formatPrice } from "@/lib/format";
+import { useGetProperty } from "@/hooks/properties/useGetProperty";
+import { useGetPropertyFeatures } from "@/hooks/properties/useGetPropertyFeatures";
+import { useGetPropertyAddress } from "@/hooks/addresses/useGetPropertyAddress";
 
 export default function ListingPage() {
-  const { id } = useParams<{ id: string }>()
-  const { status: authStatus } = useAuth()
+  const { id } = useParams<{ id: string }>();
+  const { status: authStatus } = useAuth();
 
-  const enabled = authStatus !== 'loading'
+  const enabled = authStatus !== "loading";
   const {
     data: property,
     isLoading: propertyLoading,
     isError: notFound,
-  } = useGetProperty(id, { enabled })
-  const { data: address } = useGetPropertyAddress(id, { enabled })
-  const { data: featuresRes } = useGetPropertyFeatures(id, { enabled })
+  } = useGetProperty(id, { enabled });
+  const { data: address } = useGetPropertyAddress(id, { enabled });
+  const { data: featuresRes } = useGetPropertyFeatures(id, { enabled });
 
-  const loading = authStatus === 'loading' || propertyLoading
-  const amenities = featuresRes?.features ?? []
+  const loading = authStatus === "loading" || propertyLoading;
+  const amenities = featuresRes?.features ?? [];
 
   if (loading) {
     return (
       <div className="min-h-screen">
         <SiteHeader />
         <div className="flex items-center justify-center py-24">
-          <Loader2 className="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
+          <Loader2
+            className="size-6 animate-spin text-muted-foreground"
+            aria-hidden="true"
+          />
         </div>
       </div>
-    )
+    );
   }
 
   if (notFound || !property) {
@@ -57,38 +60,48 @@ export default function ListingPage() {
       <div className="min-h-screen">
         <SiteHeader />
         <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8">
-          <h1 className="text-xl font-semibold text-foreground">Listing not found</h1>
+          <h1 className="text-xl font-semibold text-foreground">
+            Listing not found
+          </h1>
           <p className="mt-2 text-muted-foreground">
             This listing may have been removed or never existed.
           </p>
-          <Button className="mt-6" nativeButton={false} render={<Link href="/" />}>
+          <Button
+            className="mt-6"
+            nativeButton={false}
+            render={<Link href="/" />}
+          >
             Back to listings
           </Button>
         </div>
       </div>
-    )
+    );
   }
 
-  const images = property.images.length > 0
-    ? property.images
-        .slice()
-        .sort((a, b) => a.position - b.position)
-        .map((img) => img.url)
-    : property.mainImageUrl
-      ? [property.mainImageUrl]
-      : ['/placeholder.svg']
+  const images =
+    property.images.length > 0
+      ? property.images
+          .slice()
+          .sort((a, b) => a.position - b.position)
+          .map((img) => img.url)
+      : property.mainImageUrl
+        ? [property.mainImageUrl]
+        : ["/placeholder.svg"];
 
-  const location = address ? `${address.city}, ${address.state}` : null
+  const location = address ? `${address.city}, ${address.state}` : null;
 
   const stats = [
-    { icon: BedDouble, label: 'Bedrooms', value: property.bedrooms },
-    { icon: Bath, label: 'Bathrooms', value: property.bathrooms },
-    { icon: Maximize, label: 'm²', value: property.sizeSqM.toLocaleString() },
-  ]
+    { icon: BedDouble, label: "Bedrooms", value: property.bedrooms },
+    { icon: Bath, label: "Bathrooms", value: property.bathrooms },
+    { icon: Maximize, label: "m²", value: property.sizeSqM.toLocaleString() },
+  ];
 
   const hasContact = Boolean(
-    property.ownerContact && (property.ownerContact.name || property.ownerContact.email || property.ownerContact.phone),
-  )
+    property.ownerContact &&
+    (property.ownerContact.name ||
+      property.ownerContact.email ||
+      property.ownerContact.phone),
+  );
 
   return (
     <div className="min-h-screen">
@@ -135,10 +148,17 @@ export default function ListingPage() {
             {/* Features grid */}
             <div className="grid grid-cols-3 gap-3 rounded-2xl border border-border bg-card p-4">
               {stats.map((s) => (
-                <div key={s.label} className="flex flex-col items-center text-center">
+                <div
+                  key={s.label}
+                  className="flex flex-col items-center text-center"
+                >
                   <s.icon className="size-5 text-primary" aria-hidden="true" />
-                  <span className="mt-1.5 font-semibold text-foreground">{s.value}</span>
-                  <span className="text-xs text-muted-foreground">{s.label}</span>
+                  <span className="mt-1.5 font-semibold text-foreground">
+                    {s.value}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {s.label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -158,12 +178,16 @@ export default function ListingPage() {
             )}
 
             {/* Contact card */}
-            {authStatus === 'authenticated' && hasContact ? (
+            {authStatus === "authenticated" && hasContact ? (
               <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-                <h2 className="font-semibold text-foreground">Landlord contact info</h2>
+                <h2 className="font-semibold text-foreground">
+                  Landlord contact info
+                </h2>
                 <div className="mt-4 space-y-3">
                   {property.ownerContact?.name && (
-                    <p className="font-medium text-foreground">{property.ownerContact.name}</p>
+                    <p className="font-medium text-foreground">
+                      {property.ownerContact.name}
+                    </p>
                   )}
                   {property.ownerContact?.phone && (
                     <a
@@ -208,7 +232,7 @@ export default function ListingPage() {
                 >
                   <p className="font-medium text-foreground">Jane Doe</p>
                   <p className="text-muted-foreground">+1 (•••) •••-••••</p>
-                  <p className="text-muted-foreground">hidden@nestlee.com</p>
+                  <p className="text-muted-foreground">hidden@gmail.com</p>
                 </div>
 
                 <p className="mt-4 text-center text-sm font-medium text-foreground">
@@ -234,9 +258,11 @@ export default function ListingPage() {
         {/* Description */}
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr]">
           <div>
-            <h2 className="text-xl font-semibold text-foreground">About this home</h2>
+            <h2 className="text-xl font-semibold text-foreground">
+              About this home
+            </h2>
             <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
-              {property.description || 'No description provided.'}
+              {property.description || "No description provided."}
             </p>
           </div>
 
@@ -246,7 +272,7 @@ export default function ListingPage() {
               <Separator className="my-3" />
               <p className="text-sm text-foreground">
                 {address.streetAddress}
-                {address.extendedAddress ? `, ${address.extendedAddress}` : ''}
+                {address.extendedAddress ? `, ${address.extendedAddress}` : ""}
               </p>
               <p className="text-sm text-muted-foreground">
                 {address.city}, {address.state} {address.countryCode}
@@ -256,5 +282,5 @@ export default function ListingPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

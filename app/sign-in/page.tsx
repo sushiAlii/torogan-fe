@@ -1,60 +1,62 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { SiteHeader } from '@/components/site-header'
-import { GoogleSignInButton } from '@/components/google-signin-button'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
+import { SiteHeader } from "@/components/site-header";
+import { GoogleSignInButton } from "@/components/google-signin-button";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { useAuth } from '@/lib/auth/auth-context'
+} from "@/components/ui/card";
+import { useAuth } from "@/lib/auth/auth-context";
 
 export default function SignInPage() {
-  const router = useRouter()
-  const { status, login, signInWithGoogle } = useAuth()
+  const router = useRouter();
+  const { status, login, signInWithGoogle } = useAuth();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [pending, setPending] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/')
+    if (status === "authenticated") {
+      router.push("/");
     }
-  }, [status, router])
+  }, [status, router]);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setPending(true)
+    e.preventDefault();
+    setError(null);
+    setPending(true);
     try {
-      await login(email, password)
-      router.push('/')
+      await login(email, password);
+      router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to sign in')
+      setError(err instanceof Error ? err.message : "Failed to sign in");
     } finally {
-      setPending(false)
+      setPending(false);
     }
   }
 
   async function handleGoogleCredential(idToken: string) {
-    setError(null)
+    setError(null);
     try {
-      await signInWithGoogle(idToken)
-      router.push('/')
+      await signInWithGoogle(idToken);
+      router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to sign in with Google')
+      setError(
+        err instanceof Error ? err.message : "Failed to sign in with Google",
+      );
     }
   }
 
@@ -67,7 +69,7 @@ export default function SignInPage() {
           <CardHeader>
             <CardTitle>Welcome back</CardTitle>
             <CardDescription>
-              Sign in to your Nestlee account to continue.
+              Sign in to your account to continue.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -100,7 +102,7 @@ export default function SignInPage() {
               {error && <p className="text-sm text-destructive">{error}</p>}
 
               <Button type="submit" className="w-full" disabled={pending}>
-                {pending ? 'Signing in…' : 'Sign in'}
+                {pending ? "Signing in…" : "Sign in"}
               </Button>
             </form>
 
@@ -115,8 +117,11 @@ export default function SignInPage() {
             <GoogleSignInButton onCredential={handleGoogleCredential} />
 
             <p className="text-center text-sm text-muted-foreground">
-              No account yet?{' '}
-              <Link href="/register" className="font-medium text-primary hover:underline">
+              No account yet?{" "}
+              <Link
+                href="/register"
+                className="font-medium text-primary hover:underline"
+              >
                 Create one
               </Link>
             </p>
@@ -124,5 +129,5 @@ export default function SignInPage() {
         </Card>
       </main>
     </div>
-  )
+  );
 }

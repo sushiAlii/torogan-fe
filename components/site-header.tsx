@@ -1,23 +1,29 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { Home } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { useAuth } from '@/lib/auth/auth-context'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/lib/auth/auth-context";
+import Image from "next/image";
 
 export function SiteHeader() {
-  const { status, user, signOut } = useAuth()
+  const { status, user, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Home className="size-5" aria-hidden="true" />
+          <span className="flex size-8 items-center justify-center rounded-lg text-primary-foreground">
+            <Image
+              className="size-8"
+              src="/torogan-logo.png"
+              alt="Torogan"
+              width={0}
+              height={0}
+            />
           </span>
           <span className="text-lg font-semibold tracking-tight text-foreground">
-            Nestlee
+            Torogan
           </span>
         </Link>
 
@@ -34,7 +40,7 @@ export function SiteHeader() {
           >
             List a property
           </Link>
-          {status === 'authenticated' && (
+          {status === "authenticated" && (
             <Link
               href="/my-listings"
               className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -45,9 +51,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {status === 'loading' && <div className="h-8 w-40" />}
+          {status === "loading" && <div className="h-8 w-40" />}
 
-          {status === 'unauthenticated' && (
+          {status === "unauthenticated" && (
             <>
               <Button
                 variant="ghost"
@@ -58,13 +64,17 @@ export function SiteHeader() {
               >
                 Sign in
               </Button>
-              <Button size="sm" nativeButton={false} render={<Link href="/register" />}>
+              <Button
+                size="sm"
+                nativeButton={false}
+                render={<Link href="/register" />}
+              >
                 Get started
               </Button>
             </>
           )}
 
-          {status === 'authenticated' && user && (
+          {status === "authenticated" && user && (
             <>
               <Link
                 href="/profile"
@@ -86,5 +96,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

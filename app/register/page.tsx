@@ -1,69 +1,71 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { SiteHeader } from '@/components/site-header'
-import { GoogleSignInButton } from '@/components/google-signin-button'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
+import { SiteHeader } from "@/components/site-header";
+import { GoogleSignInButton } from "@/components/google-signin-button";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { useAuth } from '@/lib/auth/auth-context'
+} from "@/components/ui/card";
+import { useAuth } from "@/lib/auth/auth-context";
 
 export default function RegisterPage() {
-  const router = useRouter()
-  const { status, register, signInWithGoogle } = useAuth()
+  const router = useRouter();
+  const { status, register, signInWithGoogle } = useAuth();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [confirmError, setConfirmError] = useState<string | null>(null)
-  const [pending, setPending] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [confirmError, setConfirmError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/')
+    if (status === "authenticated") {
+      router.push("/");
     }
-  }, [status, router])
+  }, [status, router]);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setConfirmError(null)
+    e.preventDefault();
+    setError(null);
+    setConfirmError(null);
 
     if (password !== confirmPassword) {
-      setConfirmError('Passwords do not match')
-      return
+      setConfirmError("Passwords do not match");
+      return;
     }
 
-    setPending(true)
+    setPending(true);
     try {
-      await register(email, password)
-      router.push('/')
+      await register(email, password);
+      router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create account')
+      setError(err instanceof Error ? err.message : "Failed to create account");
     } finally {
-      setPending(false)
+      setPending(false);
     }
   }
 
   async function handleGoogleCredential(idToken: string) {
-    setError(null)
+    setError(null);
     try {
-      await signInWithGoogle(idToken)
-      router.push('/')
+      await signInWithGoogle(idToken);
+      router.push("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to sign in with Google')
+      setError(
+        err instanceof Error ? err.message : "Failed to sign in with Google",
+      );
     }
   }
 
@@ -76,7 +78,7 @@ export default function RegisterPage() {
           <CardHeader>
             <CardTitle>Create your account</CardTitle>
             <CardDescription>
-              Join Nestlee to save listings and contact landlords directly.
+              Join to save listings and contact landlords directly.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -125,7 +127,7 @@ export default function RegisterPage() {
               {error && <p className="text-sm text-destructive">{error}</p>}
 
               <Button type="submit" className="w-full" disabled={pending}>
-                {pending ? 'Creating account…' : 'Create account'}
+                {pending ? "Creating account…" : "Create account"}
               </Button>
             </form>
 
@@ -143,8 +145,11 @@ export default function RegisterPage() {
             />
 
             <p className="text-center text-sm text-muted-foreground">
-              Already have an account?{' '}
-              <Link href="/sign-in" className="font-medium text-primary hover:underline">
+              Already have an account?{" "}
+              <Link
+                href="/sign-in"
+                className="font-medium text-primary hover:underline"
+              >
                 Sign in
               </Link>
             </p>
@@ -152,5 +157,5 @@ export default function RegisterPage() {
         </Card>
       </main>
     </div>
-  )
+  );
 }
