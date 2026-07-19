@@ -29,7 +29,7 @@ export function ImageGallery({
             onClick={() => setActive(i)}
             aria-label={`View photo ${i + 1}`}
             aria-current={i === active}
-            className={`relative aspect-square overflow-hidden rounded-xl border bg-muted transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+            className={`relative aspect-square cursor-pointer overflow-hidden rounded-xl border bg-muted transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
               i === active
                 ? 'border-primary ring-2 ring-primary/30'
                 : 'border-border hover:opacity-80'

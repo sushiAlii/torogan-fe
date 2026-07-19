@@ -27,7 +27,7 @@ import { useCreateAddress } from "@/hooks/addresses/useCreateAddress";
 const PROPERTY_TYPES = ["Apartment", "Studio", "House", "Townhouse"] as const;
 
 const selectClassName =
-  "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
+  "h-8 w-full min-w-0 cursor-pointer rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm dark:bg-input/30";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -297,14 +297,14 @@ export default function DashboardPage() {
                         <label
                           key={amenity.id}
                           htmlFor={`amenity-${amenity.id}`}
-                          className="flex items-center gap-2 text-sm text-foreground"
+                          className="flex cursor-pointer items-center gap-2 text-sm text-foreground"
                         >
                           <input
                             id={`amenity-${amenity.id}`}
                             type="checkbox"
                             checked={selectedAmenityIds.has(amenity.id)}
                             onChange={() => toggleAmenity(amenity.id)}
-                            className="size-4 rounded border-input accent-primary"
+                            className="size-4 cursor-pointer rounded border-input accent-primary"
                           />
                           {amenity.name}
                         </label>

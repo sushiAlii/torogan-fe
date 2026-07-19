@@ -122,7 +122,7 @@ export function ImageUploader({
         type="button"
         disabled={disabled || remainingSlots <= 0}
         onClick={() => inputRef.current?.click()}
-        className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-muted/40 px-4 py-10 text-center transition-colors hover:border-primary/50 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-muted/40 px-4 py-10 text-center transition-colors hover:border-primary/50 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
           <UploadCloud className="size-6" aria-hidden="true" />
@@ -180,7 +180,7 @@ export function ImageUploader({
                 <button
                   type="button"
                   onClick={() => setMain(item.id)}
-                  className="absolute inset-x-1 bottom-1 rounded-md bg-background/90 px-1.5 py-0.5 text-[10px] font-medium text-foreground opacity-0 shadow-sm transition hover:bg-background group-hover:opacity-100"
+                  className="absolute inset-x-1 bottom-1 cursor-pointer rounded-md bg-background/90 px-1.5 py-0.5 text-[10px] font-medium text-foreground opacity-0 shadow-sm transition hover:bg-background group-hover:opacity-100"
                 >
                   Set as main
                 </button>
@@ -190,7 +190,7 @@ export function ImageUploader({
                 type="button"
                 onClick={() => removeItem(item.id)}
                 aria-label="Remove photo"
-                className="absolute right-1 top-1 flex size-6 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+                className="absolute right-1 top-1 flex size-6 cursor-pointer items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm transition hover:bg-background"
               >
                 <X className="size-3.5" />
               </button>
