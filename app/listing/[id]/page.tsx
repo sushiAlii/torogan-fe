@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import {
@@ -21,61 +20,26 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/lib/auth/auth-context'
-import { propertyClient, addressClient } from '@/lib/api/client'
 import { formatPrice } from '@/lib/format'
-import type { Property } from '@/lib/gen/property_pb'
-import type { Address } from '@/lib/gen/address_pb'
-import type { Feature } from '@/lib/gen/feature_pb'
+import { useGetProperty } from '@/hooks/properties/useGetProperty'
+import { useGetPropertyFeatures } from '@/hooks/properties/useGetPropertyFeatures'
+import { useGetPropertyAddress } from '@/hooks/addresses/useGetPropertyAddress'
 
 export default function ListingPage() {
   const { id } = useParams<{ id: string }>()
   const { status: authStatus } = useAuth()
 
-  const [property, setProperty] = useState<Property | null>(null)
-  const [address, setAddress] = useState<Address | null>(null)
-  const [amenities, setAmenities] = useState<Feature[]>([])
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
+  const enabled = authStatus !== 'loading'
+  const {
+    data: property,
+    isLoading: propertyLoading,
+    isError: notFound,
+  } = useGetProperty(id, { enabled })
+  const { data: address } = useGetPropertyAddress(id, { enabled })
+  const { data: featuresRes } = useGetPropertyFeatures(id, { enabled })
 
-  useEffect(() => {
-    if (authStatus === 'loading') return
-
-    let cancelled = false
-
-    async function load() {
-      setLoading(true)
-      try {
-        const p = await propertyClient.getPropertyByID({ id })
-        if (cancelled) return
-        setProperty(p)
-        setNotFound(false)
-      } catch {
-        if (!cancelled) setNotFound(true)
-        return
-      }
-
-      try {
-        const a = await addressClient.getAddressByPropertyID({ propertyId: id })
-        if (!cancelled) setAddress(a)
-      } catch {
-        if (!cancelled) setAddress(null)
-      }
-
-      try {
-        const f = await propertyClient.listPropertyFeatures({ propertyId: id })
-        if (!cancelled) setAmenities(f.features)
-      } catch {
-        if (!cancelled) setAmenities([])
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }
-
-    load()
-    return () => {
-      cancelled = true
-    }
-  }, [id, authStatus])
+  const loading = authStatus === 'loading' || propertyLoading
+  const amenities = featuresRes?.features ?? []
 
   if (loading) {
     return (

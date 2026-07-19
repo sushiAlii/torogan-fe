@@ -17,47 +17,38 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { useAuth } from '@/lib/auth/auth-context'
-import { userClient } from '@/lib/api/client'
+import { useGetMe } from '@/hooks/users/useGetMe'
+import { useUpdateMe } from '@/hooks/users/useUpdateMe'
 
 export default function ProfilePage() {
   const router = useRouter()
   const { status, user, updateUser } = useAuth()
 
+  const { data: me, isLoading: loading } = useGetMe({ enabled: status === 'authenticated' })
+  const updateMe = useUpdateMe()
+
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
+  const [prevMe, setPrevMe] = useState(me)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Seed the editable fields once `me` loads, without an effect (which would
+  // cost an extra render): adjust state during render per React's guidance
+  // at https://react.dev/learn/you-might-not-need-an-effect.
+  if (me !== prevMe) {
+    setPrevMe(me)
+    if (me) {
+      setName(me.name)
+      setPhone(me.phone)
+    }
+  }
 
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.replace('/sign-in')
     }
   }, [status, router])
-
-  useEffect(() => {
-    if (status !== 'authenticated') return
-
-    let cancelled = false
-    userClient
-      .getMe({})
-      .then((me) => {
-        if (cancelled) return
-        setName(me.name)
-        setPhone(me.phone)
-      })
-      .catch((err) => {
-        if (!cancelled) setError(ConnectError.from(err).message)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [status])
 
   if (status !== 'authenticated') {
     return (
@@ -71,16 +62,13 @@ export default function ProfilePage() {
     e.preventDefault()
     setError(null)
     setSaved(false)
-    setSaving(true)
 
     try {
-      const updated = await userClient.updateMe({ name, phone })
+      const updated = await updateMe.mutateAsync({ name, phone })
       updateUser(updated)
       setSaved(true)
     } catch (err) {
       setError(ConnectError.from(err).message)
-    } finally {
-      setSaving(false)
     }
   }
 
@@ -156,8 +144,8 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="flex justify-end pt-2">
-                  <Button type="submit" disabled={saving}>
-                    {saving ? 'Saving…' : 'Save changes'}
+                  <Button type="submit" disabled={updateMe.isPending}>
+                    {updateMe.isPending ? 'Saving…' : 'Save changes'}
                   </Button>
                 </div>
               </CardContent>

@@ -5,33 +5,19 @@ import { Loader2 } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SearchBar } from '@/components/search-bar'
 import { PropertyCard } from '@/components/property-card'
-import { propertyClient } from '@/lib/api/client'
-import type { Property } from '@/lib/gen/property_pb'
+import { useGetProperties } from '@/hooks/properties/useGetProperties'
 
 export default function BrowsePage() {
   const [query, setQuery] = useState('')
-  const [properties, setProperties] = useState<Property[]>([])
-  const [loading, setLoading] = useState(true)
+  const [debouncedQuery, setDebouncedQuery] = useState('')
 
   useEffect(() => {
-    let cancelled = false
-    const timeout = setTimeout(async () => {
-      setLoading(true)
-      try {
-        const res = await propertyClient.getPropertyList({ search: query, limit: 50 })
-        if (!cancelled) setProperties(res.properties)
-      } catch {
-        if (!cancelled) setProperties([])
-      } finally {
-        if (!cancelled) setLoading(false)
-      }
-    }, 250)
-
-    return () => {
-      cancelled = true
-      clearTimeout(timeout)
-    }
+    const timeout = setTimeout(() => setDebouncedQuery(query), 250)
+    return () => clearTimeout(timeout)
   }, [query])
+
+  const { data, isLoading: loading } = useGetProperties(debouncedQuery)
+  const properties = data?.properties ?? []
 
   return (
     <div className="min-h-screen">

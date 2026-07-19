@@ -17,7 +17,7 @@ const authInterceptor: Interceptor = (next) => (req) => {
   return next(req)
 }
 
-const transport = createConnectTransport({
+export const transport = createConnectTransport({
   baseUrl: '/rpc',
   interceptors: [authInterceptor],
   fetch: (input, init) => fetch(input, { ...init, credentials: 'include' }),

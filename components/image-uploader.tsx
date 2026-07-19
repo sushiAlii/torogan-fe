@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Star, UploadCloud, X, Loader2, AlertTriangle } from 'lucide-react'
-import { uploadClient } from '@/lib/api/client'
+import { useCreatePresignedUpload } from '@/hooks/uploads/useCreatePresignedUpload'
 
 export type UploadedPhoto = {
   publicUrl: string
@@ -36,6 +36,7 @@ export function ImageUploader({
 }) {
   const [items, setItems] = useState<PhotoItem[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
+  const createPresignedUpload = useCreatePresignedUpload()
 
   const remainingSlots = MAX_PHOTOS - items.length
 
@@ -69,7 +70,7 @@ export function ImageUploader({
       toAdd.map(async (file, i) => {
         const item = newItems[i]
         try {
-          const { uploadUrl, publicUrl } = await uploadClient.createPresignedUpload({
+          const { uploadUrl, publicUrl } = await createPresignedUpload.mutateAsync({
             contentType: file.type || 'application/octet-stream',
             fileExt: fileExtension(file),
           })

@@ -18,8 +18,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/auth-context";
-import { propertyClient, addressClient, featureClient } from "@/lib/api/client";
-import type { Feature } from "@/lib/gen/feature_pb";
+import { useGetFeatures } from "@/hooks/features/useGetFeatures";
+import { useCreateProperty } from "@/hooks/properties/useCreateProperty";
+import { useAddPropertyImage } from "@/hooks/properties/useAddPropertyImage";
+import { useAddPropertyFeature } from "@/hooks/properties/useAddPropertyFeature";
+import { useCreateAddress } from "@/hooks/addresses/useCreateAddress";
 
 const PROPERTY_TYPES = ["Apartment", "Studio", "House", "Townhouse"] as const;
 
@@ -41,10 +44,16 @@ export default function DashboardPage() {
   const [bathrooms, setBathrooms] = useState("");
   const [description, setDescription] = useState("");
 
-  const [amenities, setAmenities] = useState<Feature[]>([]);
+  const { data: featuresRes } = useGetFeatures();
+  const amenities = featuresRes?.features ?? [];
   const [selectedAmenityIds, setSelectedAmenityIds] = useState<Set<number>>(
     new Set(),
   );
+
+  const createProperty = useCreateProperty();
+  const addPropertyImage = useAddPropertyImage();
+  const addPropertyFeature = useAddPropertyFeature();
+  const createAddress = useCreateAddress();
 
   const [streetAddress, setStreetAddress] = useState("");
   const [extendedAddress, setExtendedAddress] = useState("");
@@ -59,15 +68,6 @@ export default function DashboardPage() {
       router.replace("/sign-in");
     }
   }, [status, router]);
-
-  useEffect(() => {
-    featureClient
-      .listFeatures({ limit: 100 })
-      .then((res) => setAmenities(res.features))
-      .catch(() => {
-        // Non-fatal: the amenities checklist just stays empty.
-      });
-  }, []);
 
   function toggleAmenity(id: number) {
     setSelectedAmenityIds((prev) => {
@@ -95,7 +95,7 @@ export default function DashboardPage() {
     setSubmitting(true);
 
     try {
-      const property = await propertyClient.createProperty({
+      const property = await createProperty.mutateAsync({
         title,
         type,
         price,
@@ -110,7 +110,7 @@ export default function DashboardPage() {
       // property can race on which image becomes "main". Position order
       // also depends on these landing in order.
       for (const [position, photo] of photos.entries()) {
-        await propertyClient.addPropertyImage({
+        await addPropertyImage.mutateAsync({
           propertyId: property.id,
           url: photo.publicUrl,
           isMain: photo.isMain,
@@ -119,13 +119,13 @@ export default function DashboardPage() {
       }
 
       for (const featureId of selectedAmenityIds) {
-        await propertyClient.addPropertyFeature({
+        await addPropertyFeature.mutateAsync({
           propertyId: property.id,
           featureId,
         });
       }
 
-      await addressClient.createAddress({
+      await createAddress.mutateAsync({
         propertyId: property.id,
         streetAddress,
         extendedAddress: extendedAddress || undefined,
