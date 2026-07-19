@@ -50,3 +50,12 @@ export function expiryText(ts: Timestamp | undefined): string {
   if (days === -1) return 'Expired yesterday'
   return `Expired ${Math.abs(days)} days ago`
 }
+
+/** Human-readable "deleted N days ago" text for the Deleted tab, based on deletedAt. */
+export function deletedText(ts: Timestamp | undefined): string {
+  if (!ts) return 'Deleted'
+  const daysAgo = Math.abs(daysUntil(ts))
+  if (daysAgo === 0) return 'Deleted today'
+  if (daysAgo === 1) return 'Deleted yesterday'
+  return `Deleted ${daysAgo} days ago`
+}

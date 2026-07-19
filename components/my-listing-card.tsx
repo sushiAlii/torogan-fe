@@ -7,6 +7,7 @@ import { BedDouble, Bath, Maximize } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { RenewModal } from '@/components/renew-modal'
+import { DeleteConfirmModal } from '@/components/delete-confirm-modal'
 import { formatPrice } from '@/lib/format'
 import { isPropertyStatus, statusLabel, statusBadgeVariant, expiryText } from '@/lib/property-status'
 import { useMarkPropertyRented } from '@/hooks/properties/useMarkPropertyRented'
@@ -18,6 +19,7 @@ import type { Property } from '@/lib/gen/property_pb'
 // to the public listing page here.
 export function MyListingCard({ property }: { property: Property }) {
   const [renewOpen, setRenewOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
   const markRented = useMarkPropertyRented()
   const markAvailable = useMarkPropertyAvailable()
 
@@ -94,10 +96,17 @@ export function MyListingCard({ property }: { property: Property }) {
               {markRented.isPending ? 'Updating…' : 'Mark as rented'}
             </Button>
           )}
+          <Button size="sm" variant="outline" nativeButton={false} render={<Link href={`/listing/${property.id}/edit`} />}>
+            Edit
+          </Button>
+          <Button size="sm" variant="destructive" onClick={() => setDeleteOpen(true)}>
+            Delete
+          </Button>
         </div>
       </div>
 
       <RenewModal propertyId={property.id} open={renewOpen} onOpenChange={setRenewOpen} />
+      <DeleteConfirmModal propertyId={property.id} open={deleteOpen} onOpenChange={setDeleteOpen} />
     </div>
   )
 }

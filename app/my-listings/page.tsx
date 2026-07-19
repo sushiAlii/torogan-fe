@@ -5,13 +5,19 @@ import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { MyListingCard } from '@/components/my-listing-card'
+import { DeletedListingCard } from '@/components/deleted-listing-card'
 import { useAuth } from '@/lib/auth/auth-context'
 import { useGetMyProperties } from '@/hooks/properties/useGetMyProperties'
+import { useGetMyDeletedProperties } from '@/hooks/properties/useGetMyDeletedProperties'
 import { PROPERTY_STATUSES, isPropertyStatus, statusLabel, type PropertyStatus } from '@/lib/property-status'
 
-type Tab = 'all' | PropertyStatus
+// 'deleted' is a sibling of PropertyStatus, not folded into it — deletion
+// isn't a derived listing status (active/expired/rented), and deleted
+// listings come from an entirely separate query (GetMyPropertyList never
+// returns them at all).
+type Tab = 'all' | PropertyStatus | 'deleted'
 
-const TABS: Tab[] = ['all', ...PROPERTY_STATUSES]
+const TABS: Tab[] = ['all', ...PROPERTY_STATUSES, 'deleted']
 
 export default function MyListingsPage() {
   const router = useRouter()
@@ -19,6 +25,9 @@ export default function MyListingsPage() {
   const [activeTab, setActiveTab] = useState<Tab>('all')
 
   const { data, isLoading } = useGetMyProperties({ enabled: status === 'authenticated' })
+  const { data: deletedData, isLoading: deletedLoading } = useGetMyDeletedProperties({
+    enabled: status === 'authenticated' && activeTab === 'deleted',
+  })
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -41,7 +50,13 @@ export default function MyListingsPage() {
   // the same time, or a tab would only ever reflect whatever page happens
   // to be loaded.
   const filtered =
-    activeTab === 'all' ? properties : properties.filter((p) => isPropertyStatus(p.status) && p.status === activeTab)
+    activeTab === 'all' || activeTab === 'deleted'
+      ? properties
+      : properties.filter((p) => isPropertyStatus(p.status) && p.status === activeTab)
+
+  const deletedProperties = deletedData?.properties ?? []
+  const isDeletedTab = activeTab === 'deleted'
+  const tabLabel = (tab: Tab) => (tab === 'all' ? 'All' : tab === 'deleted' ? 'Deleted' : statusLabel(tab))
 
   return (
     <div className="min-h-screen">
@@ -65,12 +80,29 @@ export default function MyListingsPage() {
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
-              {tab === 'all' ? 'All' : statusLabel(tab)}
+              {tabLabel(tab)}
             </button>
           ))}
         </div>
 
-        {isLoading ? (
+        {isDeletedTab ? (
+          deletedLoading ? (
+            <div className="flex items-center justify-center py-16">
+              <Loader2 className="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
+            </div>
+          ) : deletedProperties.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {deletedProperties.map((property) => (
+                <DeletedListingCard key={property.id} property={property} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border bg-card py-16 text-center">
+              <p className="font-medium text-foreground">No listings here</p>
+              <p className="mt-1 text-sm text-muted-foreground">Nothing in the trash right now.</p>
+            </div>
+          )
+        ) : isLoading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
           </div>
@@ -86,7 +118,7 @@ export default function MyListingsPage() {
             <p className="mt-1 text-sm text-muted-foreground">
               {activeTab === 'all'
                 ? "You haven't listed any properties yet."
-                : `You have no ${statusLabel(activeTab).toLowerCase()} listings.`}
+                : `You have no ${tabLabel(activeTab).toLowerCase()} listings.`}
             </p>
           </div>
         )}
