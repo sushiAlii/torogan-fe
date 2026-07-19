@@ -10,14 +10,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteTitle = "Torogan — Find your next place to rent";
+const siteDescription =
+  "Browse verified rental homes and apartments. Connect directly with landlords on Torogan.";
+
 export const metadata: Metadata = {
-  title: "Torogan — Find your next place to rent",
-  description:
-    "Browse verified rental homes and apartments. Connect directly with landlords on Torogan.",
+  metadataBase: new URL("https://torogan.com"),
+  title: siteTitle,
+  description: siteDescription,
   generator: "v0.app",
   icons: {
     icon: "/apple-icon.png",
     apple: "/apple-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Torogan",
+    title: siteTitle,
+    description: siteDescription,
+    images: [{ url: "/torogan-logo.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/torogan-logo.png"],
   },
 };
 
