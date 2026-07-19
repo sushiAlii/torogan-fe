@@ -1,82 +1,65 @@
-"use client";
-
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import {
-  ArrowLeft,
-  MapPin,
-  BedDouble,
-  Bath,
-  Maximize,
-  Lock,
-  ShieldCheck,
-  Loader2,
-  Phone,
-  Mail,
-} from "lucide-react";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { ArrowLeft, MapPin, BedDouble, Bath, Maximize } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { ImageGallery } from "@/components/image-gallery";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/lib/auth/auth-context";
+import { ListingContactCard } from "@/components/listing-contact-card";
 import { formatPrice } from "@/lib/format";
-import { useGetProperty } from "@/hooks/properties/useGetProperty";
-import { useGetPropertyFeatures } from "@/hooks/properties/useGetPropertyFeatures";
-import { useGetPropertyAddress } from "@/hooks/addresses/useGetPropertyAddress";
+import { getListingData } from "@/lib/api/listing-data";
 
-export default function ListingPage() {
-  const { id } = useParams<{ id: string }>();
-  const { status: authStatus } = useAuth();
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
 
-  const enabled = authStatus !== "loading";
-  const {
-    data: property,
-    isLoading: propertyLoading,
-    isError: notFound,
-  } = useGetProperty(id, { enabled });
-  const { data: address } = useGetPropertyAddress(id, { enabled });
-  const { data: featuresRes } = useGetPropertyFeatures(id, { enabled });
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const data = await getListingData(id); // cache()'d — shared with the page body below, no extra network call
 
-  const loading = authStatus === "loading" || propertyLoading;
-  const amenities = featuresRes?.features ?? [];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen">
-        <SiteHeader />
-        <div className="flex items-center justify-center py-24">
-          <Loader2
-            className="size-6 animate-spin text-muted-foreground"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
-    );
+  if (!data) {
+    return { title: "Listing not found — Torogan" };
   }
 
-  if (notFound || !property) {
-    return (
-      <div className="min-h-screen">
-        <SiteHeader />
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8">
-          <h1 className="text-xl font-semibold text-foreground">
-            Listing not found
-          </h1>
-          <p className="mt-2 text-muted-foreground">
-            This listing may have been removed or never existed.
-          </p>
-          <Button
-            className="mt-6"
-            nativeButton={false}
-            render={<Link href="/" />}
-          >
-            Back to listings
-          </Button>
-        </div>
-      </div>
-    );
+  const { property } = data;
+  const title = `${property.title} — ${formatPrice(property.price)}/mo | Torogan`;
+  const description =
+    property.description.slice(0, 160) ||
+    `${property.type} • ${property.bedrooms} bed • ${property.bathrooms} bath • ${property.sizeSqM} m². View on Torogan.`;
+  const image =
+    property.mainImageUrl || property.images[0]?.url || "/placeholder.jpg";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `/listing/${id}`,
+      images: [{ url: image }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
+export default async function ListingPage({ params }: PageProps) {
+  const { id } = await params;
+  const data = await getListingData(id);
+
+  if (!data) {
+    notFound();
   }
+
+  const { property, address, features } = data;
 
   const images =
     property.images.length > 0
@@ -95,13 +78,6 @@ export default function ListingPage() {
     { icon: Bath, label: "Bathrooms", value: property.bathrooms },
     { icon: Maximize, label: "m²", value: property.sizeSqM.toLocaleString() },
   ];
-
-  const hasContact = Boolean(
-    property.ownerContact &&
-    (property.ownerContact.name ||
-      property.ownerContact.email ||
-      property.ownerContact.phone),
-  );
 
   return (
     <div className="min-h-screen">
@@ -164,11 +140,11 @@ export default function ListingPage() {
             </div>
 
             {/* Amenities */}
-            {amenities.length > 0 && (
+            {features.length > 0 && (
               <div className="rounded-2xl border border-border bg-card p-4">
                 <h2 className="font-semibold text-foreground">Amenities</h2>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {amenities.map((amenity) => (
+                  {features.map((amenity) => (
                     <Badge key={amenity.id} variant="secondary">
                       {amenity.name}
                     </Badge>
@@ -177,81 +153,7 @@ export default function ListingPage() {
               </div>
             )}
 
-            {/* Contact card */}
-            {authStatus === "authenticated" && hasContact ? (
-              <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-                <h2 className="font-semibold text-foreground">
-                  Landlord contact info
-                </h2>
-                <div className="mt-4 space-y-3">
-                  {property.ownerContact?.name && (
-                    <p className="font-medium text-foreground">
-                      {property.ownerContact.name}
-                    </p>
-                  )}
-                  {property.ownerContact?.phone && (
-                    <a
-                      href={`tel:${property.ownerContact.phone}`}
-                      className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <Phone className="size-4" aria-hidden="true" />
-                      {property.ownerContact.phone}
-                    </a>
-                  )}
-                  {property.ownerContact?.email && (
-                    <a
-                      href={`mailto:${property.ownerContact.email}`}
-                      className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <Mail className="size-4" aria-hidden="true" />
-                      {property.ownerContact.email}
-                    </a>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm">
-                <div className="flex items-center gap-3">
-                  <span className="flex size-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
-                    <Lock className="size-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h2 className="font-semibold text-foreground">
-                      Landlord contact info
-                    </h2>
-                    <p className="text-sm text-muted-foreground">
-                      Phone &amp; email are hidden
-                    </p>
-                  </div>
-                </div>
-
-                {/* Blurred fake info to hint at content */}
-                <div
-                  aria-hidden="true"
-                  className="mt-4 space-y-2 select-none blur-sm"
-                >
-                  <p className="font-medium text-foreground">Jane Doe</p>
-                  <p className="text-muted-foreground">+1 (•••) •••-••••</p>
-                  <p className="text-muted-foreground">hidden@gmail.com</p>
-                </div>
-
-                <p className="mt-4 text-center text-sm font-medium text-foreground">
-                  Sign in to view contact info
-                </p>
-                <Button
-                  size="lg"
-                  className="mt-3 w-full"
-                  nativeButton={false}
-                  render={<Link href="/sign-in" />}
-                >
-                  Sign in to view contact
-                </Button>
-                <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-                  <ShieldCheck className="size-3.5" aria-hidden="true" />
-                  Free account — verified renters only
-                </p>
-              </div>
-            )}
+            <ListingContactCard propertyId={property.id} />
           </div>
         </div>
 
@@ -268,7 +170,9 @@ export default function ListingPage() {
 
           {address && (
             <div>
-              <h2 className="text-xl font-semibold text-foreground">Address</h2>
+              <h2 className="text-xl font-semibold text-foreground">
+                Address
+              </h2>
               <Separator className="my-3" />
               <p className="text-sm text-foreground">
                 {address.streetAddress}
