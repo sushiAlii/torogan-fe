@@ -18,7 +18,7 @@ type PhotoItem = {
   isMain: boolean
 }
 
-const MAX_PHOTOS = 5
+const DEFAULT_MAX_PHOTOS = 5
 
 function fileExtension(file: File) {
   const fromName = file.name.split('.').pop()
@@ -30,15 +30,17 @@ function fileExtension(file: File) {
 export function ImageUploader({
   onChange,
   disabled,
+  maxPhotos = DEFAULT_MAX_PHOTOS,
 }: {
   onChange: (photos: UploadedPhoto[]) => void
   disabled?: boolean
+  maxPhotos?: number
 }) {
   const [items, setItems] = useState<PhotoItem[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const createPresignedUpload = useCreatePresignedUpload()
 
-  const remainingSlots = MAX_PHOTOS - items.length
+  const remainingSlots = maxPhotos - items.length
 
   // Sync the successfully-uploaded subset up to the parent whenever items
   // changes — the caller persists these via addPropertyImage on submit.
@@ -128,10 +130,10 @@ export function ImageUploader({
           <UploadCloud className="size-6" aria-hidden="true" />
         </span>
         <span className="text-sm font-medium text-foreground">
-          {remainingSlots > 0 ? 'Click to upload images' : 'Maximum of 5 photos reached'}
+          {remainingSlots > 0 ? 'Click to upload images' : `Maximum of ${maxPhotos} photos reached`}
         </span>
         <span className="text-xs text-muted-foreground">
-          PNG or JPG &middot; up to {MAX_PHOTOS} photos &middot; {remainingSlots} remaining
+          PNG or JPG &middot; up to {maxPhotos} photos &middot; {remainingSlots} remaining
         </span>
       </button>
       <input
