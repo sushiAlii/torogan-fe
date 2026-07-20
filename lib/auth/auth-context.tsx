@@ -20,9 +20,9 @@ type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
 type AuthContextValue = {
   user: User | undefined
   status: AuthStatus
-  login: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string) => Promise<void>
-  signInWithGoogle: (idToken: string) => Promise<void>
+  login: (email: string, password: string) => Promise<User>
+  register: (email: string, password: string, name: string, phone: string) => Promise<User>
+  signInWithGoogle: (idToken: string) => Promise<User>
   signOut: () => Promise<void>
   updateUser: (user: User) => void
 }
@@ -62,17 +62,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAccessToken(res.accessToken)
       setUser(res.user)
       setStatus('authenticated')
+      // res.user is typed optional on the wire message; login always
+      // returns one on success, so this narrows for callers.
+      if (!res.user) throw new Error('login response missing user')
+      return res.user
     } catch (err) {
       throw ConnectError.from(err)
     }
   }, [])
 
-  const register = useCallback(async (email: string, password: string) => {
+  const register = useCallback(async (email: string, password: string, name: string, phone: string) => {
     try {
-      const res = await authClient.register({ email, password })
+      const res = await authClient.register({ email, password, name, phone })
       setAccessToken(res.accessToken)
       setUser(res.user)
       setStatus('authenticated')
+      if (!res.user) throw new Error('register response missing user')
+      return res.user
     } catch (err) {
       throw ConnectError.from(err)
     }
@@ -84,6 +90,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAccessToken(res.accessToken)
       setUser(res.user)
       setStatus('authenticated')
+      if (!res.user) throw new Error('signInWithGoogle response missing user')
+      return res.user
     } catch (err) {
       throw ConnectError.from(err)
     }

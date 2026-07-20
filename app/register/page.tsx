@@ -18,11 +18,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/auth-context";
+import { isProfileComplete } from "@/lib/auth/profile-complete";
 
 export default function RegisterPage() {
   const router = useRouter();
   const { status, register, signInWithGoogle } = useAuth();
 
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -48,8 +51,8 @@ export default function RegisterPage() {
 
     setPending(true);
     try {
-      await register(email, password);
-      router.push("/");
+      const user = await register(email, password, name, phone);
+      router.push(isProfileComplete(user) ? "/" : "/profile");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create account");
     } finally {
@@ -60,8 +63,8 @@ export default function RegisterPage() {
   async function handleGoogleCredential(idToken: string) {
     setError(null);
     try {
-      await signInWithGoogle(idToken);
-      router.push("/");
+      const user = await signInWithGoogle(idToken);
+      router.push(isProfileComplete(user) ? "/" : "/profile");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to sign in with Google",
@@ -83,6 +86,30 @@ export default function RegisterPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="Jane Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone number</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  required
+                  autoComplete="tel"
+                  placeholder="+1 (555) 000-0000"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input

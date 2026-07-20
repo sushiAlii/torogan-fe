@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/auth-context";
+import { isProfileComplete } from "@/lib/auth/profile-complete";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -39,8 +40,8 @@ export default function SignInPage() {
     setError(null);
     setPending(true);
     try {
-      await login(email, password);
-      router.push("/");
+      const user = await login(email, password);
+      router.push(isProfileComplete(user) ? "/" : "/profile");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to sign in");
     } finally {
@@ -51,8 +52,8 @@ export default function SignInPage() {
   async function handleGoogleCredential(idToken: string) {
     setError(null);
     try {
-      await signInWithGoogle(idToken);
-      router.push("/");
+      const user = await signInWithGoogle(idToken);
+      router.push(isProfileComplete(user) ? "/" : "/profile");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to sign in with Google",
