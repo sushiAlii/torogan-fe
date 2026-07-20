@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -78,6 +78,16 @@ export default function EditListingPage() {
 
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const errorRef = useRef<HTMLDivElement>(null)
+
+  // The error banner renders above the form, but the submit button is at
+  // the bottom of a long form — without this, an error on submit is
+  // invisible unless the user manually scrolls back up.
+  useEffect(() => {
+    if (error) {
+      errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [error])
 
   // Seed the editable fields once every source has loaded, adjusting state
   // during render (no effect, no extra render) — same pattern as the
@@ -270,7 +280,10 @@ export default function EditListingPage() {
         </div>
 
         {error && (
-          <div className="mb-6 flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-4">
+          <div
+            ref={errorRef}
+            className="mb-6 flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-4"
+          >
             <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-destructive/20 text-destructive">
               <AlertTriangle className="size-4" aria-hidden="true" />
             </span>
