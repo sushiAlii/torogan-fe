@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/auth-context";
+import { isProfileComplete } from "@/lib/auth/profile-complete";
 import { useGetFeatures } from "@/hooks/features/useGetFeatures";
 import { useCreateProperty } from "@/hooks/properties/useCreateProperty";
 import { useAddPropertyImage } from "@/hooks/properties/useAddPropertyImage";
@@ -32,7 +33,7 @@ const selectClassName =
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { status } = useAuth();
+  const { status, user } = useAuth();
 
   const [photos, setPhotos] = useState<UploadedPhoto[]>([]);
 
@@ -69,8 +70,12 @@ export default function DashboardPage() {
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/sign-in");
+    } else if (status === "authenticated" && user && !isProfileComplete(user)) {
+      // A listing needs a real name/phone to be useful to renters — don't
+      // let them fill out the whole form only to be rejected on submit.
+      router.replace("/profile");
     }
-  }, [status, router]);
+  }, [status, user, router]);
 
   function toggleAmenity(id: number) {
     setSelectedAmenityIds((prev) => {
@@ -84,7 +89,7 @@ export default function DashboardPage() {
     });
   }
 
-  if (status !== "authenticated") {
+  if (status !== "authenticated" || (user && !isProfileComplete(user))) {
     return (
       <div className="min-h-screen">
         <SiteHeader />
@@ -95,6 +100,40 @@ export default function DashboardPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+
+    if (
+      title.trim() === "" ||
+      description.trim() === "" ||
+      streetAddress.trim() === "" ||
+      city.trim() === "" ||
+      state.trim() === ""
+    ) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    const priceNum = Number(price);
+    const bedroomsNum = Number(bedrooms);
+    const bathroomsNum = Number(bathrooms);
+    const sizeSqMNum = Number(sizeSqM);
+
+    if (!(priceNum > 0)) {
+      setError("Monthly rent must be greater than 0.");
+      return;
+    }
+    if (!(bedroomsNum > 0)) {
+      setError("Bedrooms must be greater than 0.");
+      return;
+    }
+    if (!(bathroomsNum > 0)) {
+      setError("Bathrooms must be greater than 0.");
+      return;
+    }
+    if (!(sizeSqMNum > 0)) {
+      setError("Size must be greater than 0.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -102,9 +141,9 @@ export default function DashboardPage() {
         title,
         type,
         price,
-        sizeSqM: sizeSqM ? Number(sizeSqM) : 0,
-        bedrooms: bedrooms ? Number(bedrooms) : 0,
-        bathrooms: bathrooms ? Number(bathrooms) : 0,
+        sizeSqM: sizeSqMNum,
+        bedrooms: bedroomsNum,
+        bathrooms: bathroomsNum,
         description,
         expirationDays,
       });
@@ -231,7 +270,6 @@ export default function DashboardPage() {
                       <Input
                         id="price"
                         type="number"
-                        min="0"
                         step="0.01"
                         required
                         value={price}
@@ -271,7 +309,7 @@ export default function DashboardPage() {
                     <Input
                       id="bedrooms"
                       type="number"
-                      min="0"
+                      required
                       step="1"
                       value={bedrooms}
                       onChange={(e) => setBedrooms(e.target.value)}
@@ -283,7 +321,7 @@ export default function DashboardPage() {
                     <Input
                       id="bathrooms"
                       type="number"
-                      min="0"
+                      required
                       step="1"
                       value={bathrooms}
                       onChange={(e) => setBathrooms(e.target.value)}
@@ -295,7 +333,7 @@ export default function DashboardPage() {
                     <Input
                       id="size"
                       type="number"
-                      min="0"
+                      required
                       step="0.1"
                       value={sizeSqM}
                       onChange={(e) => setSizeSqM(e.target.value)}
@@ -309,6 +347,7 @@ export default function DashboardPage() {
                   <Textarea
                     id="description"
                     rows={4}
+                    required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe the space, neighborhood, and what makes it special..."
