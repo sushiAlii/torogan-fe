@@ -7,6 +7,7 @@ import { ImageGallery } from "@/components/image-gallery";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ListingContactCard } from "@/components/listing-contact-card";
+import { ShareListingButton } from "@/components/share-listing-button";
 import { formatPrice } from "@/lib/format";
 import { getListingData } from "@/lib/api/listing-data";
 
@@ -72,6 +73,9 @@ export default async function ListingPage({ params }: PageProps) {
         : ["/placeholder.svg"];
 
   const location = address ? `${address.city}, ${address.state}` : null;
+  // Same canonical absolute URL used in generateMetadata's openGraph.url
+  // above, so the shared link and the OG-tagged link are identical.
+  const listingUrl = `https://torogan.com/listing/${id}`;
 
   const stats = [
     { icon: BedDouble, label: "Bedrooms", value: property.bedrooms },
@@ -119,6 +123,9 @@ export default async function ListingPage({ params }: PageProps) {
                   {location}
                 </p>
               )}
+              <div className="mt-4">
+                <ShareListingButton url={listingUrl} title={property.title} />
+              </div>
             </div>
 
             {/* Features grid */}
