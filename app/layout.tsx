@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppProviders } from "@/lib/providers/app-providers";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -15,7 +16,7 @@ const siteDescription =
   "Browse verified rental homes and apartments. Connect directly with landlords on Torogan.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://torogan.com"),
+  metadataBase: new URL(SITE_URL),
   title: siteTitle,
   description: siteDescription,
   generator: "v0.app",
