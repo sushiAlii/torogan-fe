@@ -10,10 +10,20 @@ import { ListingContactCard } from "@/components/listing-contact-card";
 import { ShareListingButton } from "@/components/share-listing-button";
 import { formatPrice } from "@/lib/format";
 import { getListingData } from "@/lib/api/listing-data";
+import { isPropertyStatus } from "@/lib/property-status";
+import { buildListingJsonLd } from "@/lib/listing-jsonld";
+import { SITE_URL } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
+
+// A listing is only indexable/servable while it's actively available — an
+// unrecognized wire status falls back to "active", matching the same
+// leniency components/my-listing-card.tsx applies.
+function isActive(status: string) {
+  return !isPropertyStatus(status) || status === "active";
+}
 
 export async function generateMetadata({
   params,
@@ -21,8 +31,13 @@ export async function generateMetadata({
   const { id } = await params;
   const data = await getListingData(id); // cache()'d — shared with the page body below, no extra network call
 
-  if (!data) {
-    return { title: "Listing not found — Torogan" };
+  if (!data || !isActive(data.property.status)) {
+    return {
+      title: "Listing not found — Torogan",
+      // Rented/expired listings still resolve (404 below), but a stray
+      // cached link shouldn't stay indexed once a listing is unavailable.
+      robots: { index: false, follow: false },
+    };
   }
 
   const { property } = data;
@@ -31,11 +46,12 @@ export async function generateMetadata({
     property.description.slice(0, 160) ||
     `${property.type} • ${property.bedrooms} bed • ${property.bathrooms} bath • ${property.sizeSqM} m². View on Torogan.`;
   const image =
-    property.mainImageUrl || property.images[0]?.url || "/placeholder.jpg";
+    property.mainImageUrl || property.images[0]?.url || "/placeholder.svg";
 
   return {
     title,
     description,
+    alternates: { canonical: `/listing/${id}` },
     openGraph: {
       title,
       description,
@@ -56,7 +72,10 @@ export default async function ListingPage({ params }: PageProps) {
   const { id } = await params;
   const data = await getListingData(id);
 
-  if (!data) {
+  // Gate runs on every request (this route stays fully dynamic, not
+  // ISR'd) so a listing that was just marked rented or has expired 404s
+  // immediately instead of lingering as a stale "available" page.
+  if (!data || !isActive(data.property.status)) {
     notFound();
   }
 
@@ -75,7 +94,8 @@ export default async function ListingPage({ params }: PageProps) {
   const location = address ? `${address.city}, ${address.state}` : null;
   // Same canonical absolute URL used in generateMetadata's openGraph.url
   // above, so the shared link and the OG-tagged link are identical.
-  const listingUrl = `https://torogan.com/listing/${id}`;
+  const listingUrl = `${SITE_URL}/listing/${id}`;
+  const jsonLd = buildListingJsonLd(data, id, images);
 
   const stats = [
     { icon: BedDouble, label: "Bedrooms", value: property.bedrooms },
@@ -85,6 +105,12 @@ export default async function ListingPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen">
+      {/* Server-rendered into the initial HTML so crawlers see it without
+          executing JS — lets Google show price/beds/location as rich results. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
