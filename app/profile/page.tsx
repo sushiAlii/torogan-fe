@@ -19,6 +19,7 @@ import {
 import { useAuth } from "@/lib/auth/auth-context";
 import { useGetMe } from "@/hooks/users/useGetMe";
 import { useUpdateMe } from "@/hooks/users/useUpdateMe";
+import { User } from "@/lib/gen/auth_pb";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -31,7 +32,7 @@ export default function ProfilePage() {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [prevMe, setPrevMe] = useState(me);
+  const [prevMe, setPrevMe] = useState<User | undefined>(undefined);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

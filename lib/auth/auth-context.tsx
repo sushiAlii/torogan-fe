@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from 'react'
 import { ConnectError } from '@connectrpc/connect'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { authClient } from '@/lib/api/client'
 import { setAccessToken } from '@/lib/api/token'
@@ -32,6 +33,7 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | undefined>(undefined)
   const [status, setStatus] = useState<AuthStatus>('loading')
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     let cancelled = false
@@ -107,7 +109,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAccessToken(null)
     setUser(undefined)
     setStatus('unauthenticated')
-  }, [])
+    // Drop every cached query (e.g. GetMe) so the next session never reads
+    // this session's cached data — the QueryClient outlives sign-out/sign-in
+    // since neither triggers a page reload.
+    queryClient.clear()
+  }, [queryClient])
 
   const updateUser = useCallback((next: User) => {
     setUser(next)
