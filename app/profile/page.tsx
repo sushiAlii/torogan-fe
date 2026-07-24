@@ -1,74 +1,76 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { ConnectError } from '@connectrpc/connect'
-import { Check, Loader2 } from 'lucide-react'
-import { SiteHeader } from '@/components/site-header'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ConnectError } from "@connectrpc/connect";
+import { Check, Loader2 } from "lucide-react";
+import { SiteHeader } from "@/components/site-header";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { useAuth } from '@/lib/auth/auth-context'
-import { useGetMe } from '@/hooks/users/useGetMe'
-import { useUpdateMe } from '@/hooks/users/useUpdateMe'
+} from "@/components/ui/card";
+import { useAuth } from "@/lib/auth/auth-context";
+import { useGetMe } from "@/hooks/users/useGetMe";
+import { useUpdateMe } from "@/hooks/users/useUpdateMe";
 
 export default function ProfilePage() {
-  const router = useRouter()
-  const { status, user, updateUser } = useAuth()
+  const router = useRouter();
+  const { status, user, updateUser } = useAuth();
 
-  const { data: me, isLoading: loading } = useGetMe({ enabled: status === 'authenticated' })
-  const updateMe = useUpdateMe()
+  const { data: me, isLoading: loading } = useGetMe({
+    enabled: status === "authenticated",
+  });
+  const updateMe = useUpdateMe();
 
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [prevMe, setPrevMe] = useState(me)
-  const [saved, setSaved] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [prevMe, setPrevMe] = useState(me);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Seed the editable fields once `me` loads, without an effect (which would
   // cost an extra render): adjust state during render per React's guidance
   // at https://react.dev/learn/you-might-not-need-an-effect.
   if (me !== prevMe) {
-    setPrevMe(me)
+    setPrevMe(me);
     if (me) {
-      setName(me.name)
-      setPhone(me.phone)
+      setName(me.name);
+      setPhone(me.phone);
     }
   }
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.replace('/sign-in')
+    if (status === "unauthenticated") {
+      router.replace("/sign-in");
     }
-  }, [status, router])
+  }, [status, router]);
 
-  if (status !== 'authenticated') {
+  if (status !== "authenticated") {
     return (
       <div className="min-h-screen">
         <SiteHeader />
       </div>
-    )
+    );
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setSaved(false)
+    e.preventDefault();
+    setError(null);
+    setSaved(false);
 
     try {
-      const updated = await updateMe.mutateAsync({ name, phone })
-      updateUser(updated)
-      setSaved(true)
+      const updated = await updateMe.mutateAsync({ name, phone });
+      updateUser(updated);
+      setSaved(true);
     } catch (err) {
-      setError(ConnectError.from(err).message)
+      setError(ConnectError.from(err).message);
     }
   }
 
@@ -80,7 +82,9 @@ export default function ProfilePage() {
         <div className="mb-8 flex items-center gap-4">
           <Avatar size="lg">
             <AvatarImage src={user?.avatarUrl} alt={user?.email} />
-            <AvatarFallback>{(name || user?.email || '').charAt(0).toUpperCase()}</AvatarFallback>
+            <AvatarFallback>
+              {(name || user?.email || "").charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-foreground">
@@ -92,7 +96,10 @@ export default function ProfilePage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
+            <Loader2
+              className="size-6 animate-spin text-muted-foreground"
+              aria-hidden="true"
+            />
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
@@ -119,7 +126,12 @@ export default function ProfilePage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" value={user?.email ?? ''} disabled readOnly />
+                  <Input
+                    id="email"
+                    value={user?.email ?? ""}
+                    disabled
+                    readOnly
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -139,13 +151,13 @@ export default function ProfilePage() {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+63 000 000 0000"
                   />
                 </div>
 
                 <div className="flex justify-end pt-2">
                   <Button type="submit" disabled={updateMe.isPending}>
-                    {updateMe.isPending ? 'Saving…' : 'Save changes'}
+                    {updateMe.isPending ? "Saving…" : "Save changes"}
                   </Button>
                 </div>
               </CardContent>
@@ -154,5 +166,5 @@ export default function ProfilePage() {
         )}
       </main>
     </div>
-  )
+  );
 }

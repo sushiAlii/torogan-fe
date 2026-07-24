@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   type="tel"
                   required
                   autoComplete="tel"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+63 000 000 0000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
